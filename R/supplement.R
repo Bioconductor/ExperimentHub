@@ -1,3 +1,5 @@
+## The following functions are adopted from AnnotationHubMetadata-class.R in package AnnotationHubData.
+
 .NA_version_ <- numeric_version("0.0")  # proxy for unknown version
 .as.numeric_version <-
     function(x, ...)
@@ -6,6 +8,9 @@
         x[x == "unknown"] <- as.character(.NA_version_)
     base::as.numeric_version(x)
 }
+
+
+## This function converts json file into recipe class. See AnnotationHubMetadataFromJson() in AnnotationHubMetadata-class.R in package AnnotationHubData.
 
 recipeFromJson <- function( ahroot = '/var/ahdata/upload', jsonpath ){
     path <- file.path(ahroot, jsonpath)[1]
@@ -20,6 +25,8 @@ recipeFromJson <- function( ahroot = '/var/ahdata/upload', jsonpath ){
     recipe
 }
 
+
+## This function is adopted from mongo.R in package AnnotationHubServer.
 .getAuth <- function(){
     credential.file <- file.path(Sys.getenv("HOME"), ".AnnotationHubServer",
                                  "credentials.json")
@@ -30,6 +37,7 @@ recipeFromJson <- function( ahroot = '/var/ahdata/upload', jsonpath ){
         return(c(username="", password=""))
 }
 
+## This function is modified from zzz.R in package AnnotationHubServer.
 .onload <- function(libname, pkgname){
     database <- "ExperimentHub"
     credentials <- .getAuth()
@@ -38,6 +46,8 @@ recipeFromJson <- function( ahroot = '/var/ahdata/upload', jsonpath ){
     .mongo <<- .MongoHandle(database=database, namespace="metadata")
 }
 
+
+## The following functions are adopted from MongoHandle-class.R in package AnnotationHubServer.
 setOldClass("mongo")
 
 .MongoHandle <- setRefClass("MongoHandle",
@@ -78,12 +88,14 @@ setOldClass("mongo")
                                     }
                                 }))
 
+## This function is adopted from mongo.R in package AnnotationHubServer.
 .loadMongo <- function(database){
     credentials <- .getAuth()
     mongo <- mongo.create(db=database, username=credentials['username'],
                           password=credentials['password'])
 }
 
+## This function is modified from mongo.R in package AnnotationHubServer.
 json2mongo <-  function(jsonFile,filename){
     l <- fromJSON(file=jsonFile)
     l <- .decodeNA( l )
@@ -105,6 +117,7 @@ json2mongo <-  function(jsonFile,filename){
     return( b )
 }
 
+## This function is adopted from AnnotationHubMetadata-class.R in package AnnotationHubData.
 .decodeNA <- function(lst){
     .NAmap <- setNames(list(NA, NA_integer_, NA_character_, NA_real_,
                             NA_complex_),
@@ -123,7 +136,8 @@ json2mongo <-  function(jsonFile,filename){
     }, "character", how="replace")
 }
 
-#' Select the distinct values of a column.
+#' Select the distinct values of a column. This function is used in generating the optional key values in the selection lists for the searching interface.
+#' @author Chandler Zuo 
 .project <- function( col ){
     field = list ( 1 )
     names(field)[1] = col
@@ -136,9 +150,3 @@ json2mongo <-  function(jsonFile,filename){
     }
     return( unique( retvec ) )
 }
-
-library(Rook)
-library(rjson)
-library(rmongodb)
-library(AnnotationHubServer)
-
