@@ -1,0 +1,16 @@
+Package: ExperimentHub
+Type: Package
+Title: The ExperimentHub project
+Version: 0.10
+Date: 2013-06-01
+Author: Chandler Zuo
+Maintainer: Chandler Zuo<zuo@stat.wisc.edu>
+Description: Start mongod and apachectl before running this package.
+License: GPL-2
+Depends:
+    Rook,
+    rjson,
+    rmongodb,
+    AnnotationHubServer,
+    AnnotationHubData
+Packaged: 2013-06-01 18:12:54 UTC; zuo
