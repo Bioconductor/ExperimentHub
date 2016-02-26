@@ -1,0 +1,7 @@
+TODO:
+
+- add publication metadata field
+- how to handle updates: versions vs bugs
+- role of md5sums
+- policy for keeping old versions around
+- should packages build and check on regular basis

@@ -1,1 +1,32 @@
-export(run)
+import(methods)
+import(BiocGenerics)
+import(S4Vectors)
+import(AnnotationHub)
+importFrom(BiocInstaller, biocLite)
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Export S4 classes
+###
+
+exportClasses(ExperimentHub) 
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Export S4 methods for generics not defined in AnnotationHub 
+###
+
+exportMethods(
+    cache, "[[", package
+)
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Export S4 generics defined in AnnotationHub + export corresponding
+### methods
+###
+
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### Export non-generic functions
+###
+
+export(ExperimentHub, 
+       getExperimentHubOption, setExperimentHubOption)

@@ -1,16 +1,19 @@
 Package: ExperimentHub
 Type: Package
-Title: The ExperimentHub project
-Version: 0.10
-Date: 2013-06-01
-Author: Chandler Zuo
-Maintainer: Chandler Zuo<zuo@stat.wisc.edu>
-Description: Start mongod and apachectl before running this package.
-License: GPL-2
-Depends:
-    Rook,
-    rjson,
-    rmongodb,
-    AnnotationHubServer,
-    AnnotationHubData
-Packaged: 2013-06-01 18:12:54 UTC; zuo
+Title: Client to access ExperimentHub resources
+Version: 0.99.6
+Author: Bioconductor Package Maintainer <maintainer@bioconductor.org>
+Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
+Description: This package provides a client for the Bioconductor
+        ExperimentHub web resource. ExperimentHub provides a central location
+        where curated data from experiments, publications or training courses
+        can be accessed. Each resource has associated metadata, tags and date
+        of modification. The client creates and manages a local cache of files
+        retrieved enabling quick and reproducible access.
+License: Artistic-2.0
+biocViews: Infrastructure, DataImport, GUI, ThirdPartyClient
+Depends: methods, BiocGenerics (>= 0.15.10), AnnotationHub (>= 2.3.13)
+Imports: S4Vectors, BiocInstaller 
+Suggests: knitr, BiocStyle
+Enhances: ExperimentHubData
+VignetteBuilder: knitr
