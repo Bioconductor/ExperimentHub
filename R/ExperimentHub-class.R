@@ -54,11 +54,10 @@ setMethod("[[", c("ExperimentHub", "numeric", "missing"),
     if (length(x[i]) != 1L)
         stop("'i' must be length 1")
     packagename <- AnnotationHub:::.count_resources(x[i], "preparerclass")
-    if (!eval(packagename) %in% search()) {
+    if (!packagename %in% rownames(installed.packages()))
         biocLite(packagename, suppressUpdates=TRUE)
-        message(paste0("see ?", packagename, " and browseVignettes('",
-                       packagename, "') for related documentation"))
-    }
+    message("see ?", packagename, " and browseVignettes('",
+            packagename, "') for documentation")
     callNextMethod(x, i, j, ...)
     ## or AnnotationHub:::.Hub_get1(x[i])
 })
