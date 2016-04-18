@@ -54,7 +54,9 @@
   \describe{
     \item{}{
       \code{ExperimentHub(..., hub=getExperimentHubOption("URL"), 
-                         cache=getExperimentHubOption("CACHE"))}:
+        cache=getAnnotationHubOption("CACHE"),
+        proxy=getAnnotationHubOption("PROXY"))}:
+
       Create an \code{ExperimentHub} instance, possibly updating the
       current database of records.
     }

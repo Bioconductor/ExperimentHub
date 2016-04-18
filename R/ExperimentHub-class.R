@@ -10,12 +10,11 @@ setClass("ExperimentHub", contains="Hub")
 ###
 
 ExperimentHub <-
-    function(...)
+    function(..., hub=getAnnotationHubOption("URL"),
+             cache=getAnnotationHubOption("CACHE"),
+             proxy=getAnnotationHubOption("PROXY")) 
 {
-    .Hub("ExperimentHub",
-         getExperimentHubOption("URL"),
-         getExperimentHubOption("CACHE"),
-         getExperimentHubOption("PROXY"))
+    .Hub("ExperimentHub", hub, cache, proxy, ...)
 }
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
