@@ -1,6 +1,7 @@
 .EH_hub_options <- new.env(parent=emptyenv())
 
 getExperimentHubOption <- function(arg) {
+    stopifnot(is.character(arg), length(arg) == 1L)
     arg <- toupper(arg)
     key <- c("URL", "CACHE", "PROXY", "MAX_DOWNLOADS")
     if (!arg %in% key)
@@ -11,6 +12,7 @@ getExperimentHubOption <- function(arg) {
 
 setExperimentHubOption <- function(arg, value)
 {
+    stopifnot(is.character(arg), length(arg) == 1L)
     key <- .hub_option_key(toupper(trimws(arg)))
 
     .EH_hub_options[[key]] <- switch(key, URL=, CACHE={
