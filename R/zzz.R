@@ -34,7 +34,3 @@
             setExperimentHubOption("PROXY", opt)
     }
 }
-
-.onUnload <- function(libpath) {
-    .db_close()
-}
