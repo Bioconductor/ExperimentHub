@@ -24,9 +24,12 @@ ExperimentHub <-
 setMethod("package", "ExperimentHub",
     function(x)
 {
-    if (length(x) != 1L)
-        stop("'x' must be of length 1")
-    AnnotationHub:::.count_resources(x, "preparerclass")
+    query <- sprintf("SELECT preparerclass FROM resources\n
+                     WHERE resources.id IN (%s)",
+             AnnotationHub:::.id_as_single_string(x))
+    ans <- AnnotationHub:::.db_query(dbfile(x), query)[["preparerclass"]]
+    names(ans) <- names(x)
+    ans
 })
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

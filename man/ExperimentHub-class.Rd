@@ -94,7 +94,8 @@
     }
     \item{}{
       \code{package(x)}:
-      Get the package name associated with the hub resource.
+      Returns a named character vector of package name associated with 
+      the hub resource.
     }
     \item{}{
       \code{mcols(x)}:
