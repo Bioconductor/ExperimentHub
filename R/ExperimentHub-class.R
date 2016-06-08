@@ -89,6 +89,5 @@ setMethod("show", "ExperimentHub", function(object)
     cat(sprintf("%s with %d record%s\n", class(object), len,
                 ifelse(len == 1L, "", "s")))
     cat("# snapshotDate():", snapshotDate(object), "\n")
-    cat("# package(): ", package(object)[[1]], "\n", sep="")
     callNextMethod(object) 
 })
