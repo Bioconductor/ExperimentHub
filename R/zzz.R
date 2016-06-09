@@ -15,7 +15,7 @@
     }
     if (is.null(getExperimentHubOption("URL"))) {
         opt <- getOption("EXPERIMENT_HUB_URL",
-                         "http://experimenthub.bioconductor.org:3000")
+                         "https://experimenthub.bioconductor.org")
         opt <- Sys.getenv("EXPERIMENT_HUB_URL", opt)
         setExperimentHubOption("URL", opt)
     }
