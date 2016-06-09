@@ -1,5 +1,5 @@
-\name{package-utils}
-\alias{package-utils}
+\name{utilities}
+\alias{utilities}
 
 \alias{listPackageResources}
 \alias{loadPackageResources}
@@ -46,8 +46,8 @@ loadPackageResources(package, filterBy = character())
 eh <- ExperimentHub()
 unique(package(eh))
 
-## All resources associated with the 'GSE62994' package:
-listPackageResources("GSE62994")
+## All resources associated with the 'GSE62944' package:
+listPackageResources("GSE62944")
 
 ## Resources associated with the 'curatedMetagenomicData' package
 ## filtered by 'plaque.abundance':
