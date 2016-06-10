@@ -31,4 +31,4 @@ exportMethods(
 
 export(ExperimentHub, 
        getExperimentHubOption, setExperimentHubOption,
-       listPackageResources, loadPackageResources)
+       listResources, loadResources)

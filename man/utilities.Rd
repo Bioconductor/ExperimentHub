@@ -1,8 +1,8 @@
 \name{utilities}
 \alias{utilities}
 
-\alias{listPackageResources}
-\alias{loadPackageResources}
+\alias{listResources}
+\alias{loadResources}
 
 
 \title{
@@ -15,8 +15,8 @@
 }
 
 \usage{
-listPackageResources(package, filterBy = character())
-loadPackageResources(package, filterBy = character())
+listResources(package, filterBy = character())
+loadResources(package, filterBy = character())
 }
 
 \arguments{
@@ -33,8 +33,8 @@ loadPackageResources(package, filterBy = character())
 }
 
 \value{
-  \code{listPackageResources} returns a character vector; 
-  \code{loadPackageResources} returns a list of data objects.
+  \code{listResources} returns a character vector; 
+  \code{loadResources} returns a list of data objects.
 }
 
 \seealso{
@@ -47,14 +47,14 @@ eh <- ExperimentHub()
 unique(package(eh))
 
 ## All resources associated with the 'GSE62944' package:
-listPackageResources("GSE62944")
+listResources("GSE62944")
 
 ## Resources associated with the 'curatedMetagenomicData' package
 ## filtered by 'plaque.abundance':
-listPackageResources("curatedMetagenomicData", "plaque.abundance")
+listResources("curatedMetagenomicData", "plaque.abundance")
 
-## 'loadPackageResources()' returns a list of the data objects:
-loadPackageResources("curatedMetagenomicData", "plaque.abundance")
+## 'loadResources()' returns a list of the data objects:
+loadResources("curatedMetagenomicData", "plaque.abundance")
 }
 }
 \keyword{utilities}

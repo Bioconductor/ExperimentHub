@@ -1,10 +1,5 @@
 .CACHE_ROOT <- ".ExperimentHub"
 
-## FIXME: rename 'ah_id' to 'eh_id'?
-.DB_RESOURCE_FIELDS <- paste(sep=".", collapse=", ", "resources",
-    c("ah_id", "title", "dataprovider", "species", "taxonomyid", "genome",
-      "description"))
-
 .onLoad <- function(libname, pkgname, ...) {
     ## options from getOption or Sys.env or default, in that order
     if (is.null(getExperimentHubOption("MAX_DOWNLOADS"))) {
