@@ -2,7 +2,7 @@
 ### Helpers for package-specific resource discovery
 ### -------------------------------------------------------------------------
 
-listResources <- function(package, filterBy=character()) { 
+.filterResources <- function(package, filterBy=character()) {
     if (!is.character(filterBy))
         stop("'filterBy' must be a character vector")
     suppressMessages({eh <- ExperimentHub()})
@@ -11,19 +11,18 @@ listResources <- function(package, filterBy=character()) {
 
     sub <- query(eh, package)
     if (length(filterBy))
-        mcols(query(sub, filterBy))$title
+        query(sub, filterBy)
     else
-        mcols(sub)$title
+        sub
+}
+
+listResources <- function(package, filterBy=character()) { 
+    metadata <- .filterResources(package, filterBy)
+    mcols(metadata)$title
 }
 
 loadResources <- function(package, filterBy=character()) {
-    if (!package %in% rownames(installed.packages()))
-        biocLite(package, suppressUpdates=TRUE)
-    if (!isNamespaceLoaded(package))
-        attachNamespace(package)
-
-    resources <- listResources(package, filterBy)
-    ans <- lapply(resources, function(x) suppressMessages(get(x)()))
-    names(ans) <- resources
-    ans
+    metadata <- .filterResources(package, filterBy)
+    eh <- ExperimentHub()
+    lapply(names(metadata), function(i) eh[[i]]) 
 }

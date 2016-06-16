@@ -1,5 +1,8 @@
 TODO:
 
+- ExperimentHub() filter on biocVersion <= data =< datedataremoved
+  (different from AnnotationHub which just does not list a resource
+  if datedataremoved is not null)
 - add publication metadata field
 - how to handle updates: versions vs bugs
 - role of md5sums
