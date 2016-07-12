@@ -50,16 +50,27 @@ setMethod("cache", "ExperimentHub",
 ### Subsetting 
 ###
 
+.tryload <- function(pkg) {
+    ## Try to install/load; don't fail if not available
+    success <- paste0("see ?", pkg, " and browseVignettes('",
+                      pkg, "') for documentation")
+    if (!pkg %in% rownames(installed.packages()))
+        biocLite(pkg, suppressUpdates=TRUE)
+    if (pkg %in% rownames(installed.packages())) {
+        suppressPackageStartupMessages({
+            require(pkg, quietly = TRUE, character.only = TRUE)
+        })
+        message(success)
+    }
+}
+
 setMethod("[[", c("ExperimentHub", "numeric", "missing"),
     function(x, i, j, ...)
 {
     if (length(x[i]) != 1L)
         stop("'i' must be length 1")
-    packagename <- AnnotationHub:::.count_resources(x[i], "preparerclass")
-    if (!packagename %in% rownames(installed.packages()))
-        biocLite(packagename, suppressUpdates=TRUE)
-    message("see ?", packagename, " and browseVignettes('",
-            packagename, "') for documentation")
+    pkg <- AnnotationHub:::.count_resources(x[i], "preparerclass")
+    .tryload(pkg)
     callNextMethod(x, i, j, ...)
     ## or AnnotationHub:::.Hub_get1(x[i])
 })
@@ -73,11 +84,8 @@ setMethod("[[", c("ExperimentHub", "character", "missing"),
     if (is.na(idx))
         stop("unknown key ", sQuote(i))
 
-    packagename <- AnnotationHub:::.count_resources(x[i], "preparerclass")
-    if (!packagename %in% rownames(installed.packages()))
-        biocLite(packagename, suppressUpdates=TRUE)
-    message("see ?", packagename, " and browseVignettes('",
-            packagename, "') for documentation")
+    pkg <- AnnotationHub:::.count_resources(x[i], "preparerclass")
+    .tryload(pkg)
     callNextMethod(x, i, j, ...)
     ## or AnnotationHub:::.Hub_get1(x[idx])
 })
