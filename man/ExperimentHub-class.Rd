@@ -11,6 +11,7 @@
 % Accessor-like methods
 \alias{cache,ExperimentHub-method}
 \alias{package,ExperimentHub-method}
+\alias{recordStatus}
 
 % Subsetting
 \alias{[[,ExperimentHub,character,missing-method}
@@ -96,6 +97,12 @@
       \code{package(x)}:
       Returns a named character vector of package name associated with 
       the hub resource.
+    }
+    \item{}{
+      \code{recordStatus(x, record)}:
+      Returns a \code{data.frame} of the record id and status. \code{x} must 
+      be a \code{Hub} object and \code{record} must be a \code{character(1)}.
+      Can be used to discover why a resource was removed from the hub.
     }
     \item{}{
       \code{mcols(x)}:
