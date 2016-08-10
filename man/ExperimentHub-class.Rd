@@ -17,12 +17,13 @@
 \alias{[[,ExperimentHub,character,missing-method}
 \alias{[[,ExperimentHub,numeric,missing-method}
 
+% Other 
+\alias{listResources,ExperimentHub-method}
+\alias{loadResources,ExperimentHub-method}
 
 \title{ExperimentHub objects and their related methods and functions}
 
 \description{
-
-  ## TODO: Explain differences between AnnotationHub and ExperimentHub
 
   Use \code{ExperimentHub} to interact with Bioconductor's ExperimentHub
   service.  Query the instance to discover and use resources that are of
@@ -195,6 +196,16 @@
       Open a web browser allowing for easy selection of hub records via
       interactive tabular display. Return value is the subset of hub
       records identified while navigating the display.
+    }
+    \item{}{
+      \code{listResources(hub, package, filterBy=character())}:
+      List resources in ExperimentHub associated with \code{package}.
+      \code{filterBy} is a character vector of search terms.
+    }
+    \item{}{
+      \code{loadResources(hub, package, filterBy=character())}:
+      Load resources in ExperimentHub associated with \code{package}.
+      \code{filterBy} is a character vector of search terms.
     }
   }
 }
