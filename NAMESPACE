@@ -16,7 +16,8 @@ exportClasses(ExperimentHub)
 ###
 
 exportMethods(
-    cache, "[[", package
+    cache, "[[", 
+    listResources, loadResources, package
 )
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -24,11 +25,10 @@ exportMethods(
 ### methods
 ###
 
-
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Export non-generic functions
 ###
 
 export(ExperimentHub, 
-       getExperimentHubOption, setExperimentHubOption,
-       listResources, loadResources)
+       getExperimentHubOption, setExperimentHubOption
+)
