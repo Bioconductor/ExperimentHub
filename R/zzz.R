@@ -15,7 +15,7 @@
         setExperimentHubOption("URL", opt)
     }
     if (is.null(getExperimentHubOption("CACHE"))) {
-        path <- switch(.Platform$OS.type, unix = path.expand("~"),
+        path <- switch(.Platform$OS.type, unix = path.expand("~/"),
                        windows= file.path(gsub("\\\\", "/",
                        Sys.getenv("HOME")), "AppData"))
         opt <- getOption("EXPERIMENT_HUB_CACHE", file.path(path, .CACHE_ROOT))
