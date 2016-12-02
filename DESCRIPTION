@@ -1,7 +1,7 @@
 Package: ExperimentHub
 Type: Package
 Title: Client to access ExperimentHub resources
-Version: 1.1.0
+Version: 1.1.1
 Author: Bioconductor Package Maintainer <maintainer@bioconductor.org>
 Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
 Description: This package provides a client for the Bioconductor
@@ -12,8 +12,8 @@ Description: This package provides a client for the Bioconductor
         retrieved enabling quick and reproducible access.
 License: Artistic-2.0
 biocViews: Infrastructure, DataImport, GUI, ThirdPartyClient
-Depends: methods, BiocGenerics (>= 0.15.10), AnnotationHub (>= 2.5.9)
-Imports: utils, S4Vectors, BiocInstaller
+Depends: methods, utils, BiocGenerics (>= 0.15.10), AnnotationHub (>= 2.5.9)
+Imports: S4Vectors, BiocInstaller
 Suggests: knitr, BiocStyle
 Enhances: ExperimentHubData
 VignetteBuilder: knitr

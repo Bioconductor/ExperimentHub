@@ -1,5 +1,5 @@
 import(methods)
-importFrom(utils, installed.packages)
+import(utils)
 import(BiocGenerics)
 import(S4Vectors)
 import(AnnotationHub)
