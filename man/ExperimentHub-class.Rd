@@ -20,6 +20,7 @@
 % Other 
 \alias{listResources,ExperimentHub-method}
 \alias{loadResources,ExperimentHub-method}
+\alias{createHubAccessors}
 
 \title{ExperimentHub objects and their related methods and functions}
 
@@ -269,10 +270,29 @@
   }
 }
 
+\section{For developers}{
+  \code{createHubAccessors(metadata=FALSE): } This helper is intended to be
+  used by ExperimentHub package developers in their .onLoad() function in 
+  zzz.R. It generates and exports functions by resource name which allows the 
+  resource to be loaded with resource123() in addition to the standard method 
+  via the ExperimentHub interface, e.g., ehub[["EH123"]]. When 'metadata=TRUE'
+  just the metadata are displayed, when 'metadata=FALSE' the full resource is 
+  loaded.
+}
+
 \author{Bioconductor Core Team}
 
 \examples{
-  ## TODO:
+  ## Create an ExperimentHub object
+  ehub <- ExperimentHub()
+  ehub
+
+  ## Display packages associated with resources
+  unique(package(ehub))
+  query(ehub, "alpineData")
+
+  ## Search metadata by general terms
+  query(ehub, c("FASTQ", "Homo sapiens"))
 }
 
 \keyword{classes}

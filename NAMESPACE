@@ -1,9 +1,9 @@
 import(methods)
-import(utils)
 import(BiocGenerics)
 import(S4Vectors)
 import(AnnotationHub)
 importFrom(BiocInstaller, biocLite)
+importFrom(utils, installed.packages)
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Export S4 classes
@@ -30,5 +30,6 @@ exportMethods(
 ###
 
 export(ExperimentHub, 
-       getExperimentHubOption, setExperimentHubOption
+       getExperimentHubOption, setExperimentHubOption,
+       createHubAccessors
 )

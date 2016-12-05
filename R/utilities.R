@@ -2,6 +2,43 @@
 ### Helpers for package-specific resource discovery
 ### -------------------------------------------------------------------------
 
+## export resources as accessor functions
+
+.hubAccessorFactory <- function(ehid) {
+     force(ehid)
+     function(metadata=FALSE) {
+         eh <- ExperimentHub()
+         if (metadata) {
+             eh[ehid]
+         } else
+             eh[[ehid]]
+     }
+}
+
+createHubAccessors <- function(pkgname, titles) {
+    ## map titles to ExperimentHub identifiers
+    eh <- query(ExperimentHub(), "alpineData")
+    ehids <- sapply(titles, function(title) {
+        ehid <- names(query(eh, title))
+        if (length(ehid) == 0L) {
+            stop(sQuote(title), " not found in ExperimentHub")
+        } else if (length(ehid) != 1L) {
+            stop(sQuote(title), 
+                 " matches more than 1 ExperimentHub resource")
+        }
+        ehid
+    })
+
+    ## create and export accessor functions in package namespace
+    ns <- asNamespace(pkgname)
+    for (i in seq_along(titles)) {
+        assign(titles[[i]], .hubAccessorFactory(ehids[[i]]), envir=ns)
+        namespaceExport(ns, titles[[i]])
+    }
+}
+
+## resource discovery
+
 .filterResources_EH <- function(package, filterBy=character()) {
     if (!is.character(filterBy))
         stop("'filterBy' must be a character vector")
