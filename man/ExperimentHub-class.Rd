@@ -32,7 +32,9 @@
   immediate use.
 
   Use \code{ExperimentHub()} to retrieve information about all records
-  in the hub.
+  in the hub. If working offline, add argument \code{localHub=TRUE} to
+  work with a local, non-updated hub; It will only have resources
+  available that have previously been downloaded. 
 
   Discover records in a hub using \code{mcols()}, \code{query()},
   \code{subset()}, \code{[}, and \code{display()}.
@@ -58,7 +60,8 @@
     \item{}{
       \code{ExperimentHub(..., hub=getExperimentHubOption("URL"), 
         cache=getAnnotationHubOption("CACHE"),
-        proxy=getAnnotationHubOption("PROXY"))}:
+        proxy=getAnnotationHubOption("PROXY"),
+        localHub=FALSE)}:
 
       Create an \code{ExperimentHub} instance, possibly updating the
       current database of records.
