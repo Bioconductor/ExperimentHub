@@ -17,7 +17,7 @@
 
 createHubAccessors <- function(pkgname, titles) {
     ## map titles to ExperimentHub identifiers
-    eh <- query(ExperimentHub(), "alpineData")
+    eh <- query(ExperimentHub(), pkgname)
     ehids <- sapply(titles, function(title) {
         ehid <- names(query(eh, title))
         if (length(ehid) == 0L) {
