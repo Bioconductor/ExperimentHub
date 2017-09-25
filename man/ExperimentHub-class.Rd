@@ -183,7 +183,9 @@
           describing how matches across pattern elements are to be
           combined. The default \code{`&`} requires that only records
           with \emph{all} elements of \code{pattern} in their metadata
-          columns are returned.}
+          columns are returned. \code{`&`}, \code{`|`} and \code{`!`}
+	  are most notably available. See \code{"?&"} or
+	  \code{?base::Ops} for more information.}
       }
     }
     \item{}{
@@ -193,7 +195,7 @@
       expression can reference columns of \code{mcols(x)}, and should
       return a logical vector of length \code{length(x)}.
       e.g., \code{subset(x, species == "Homo sapiens" &
-        genome="GRCh38")}.
+        genome=="GRCh38")}.
     }
     \item{}{
       \code{display(object)}:
@@ -247,14 +249,6 @@
       calling this function, the user will have to download any ExperimentHub
       resources again.
     }
-    \item{}{
-      \code{getExperimentHubOption()}:
-      TODO: Get cache options "CACHE", "URL", "MAXDOWNLOADS" ... 
-    }
-    \item{}{
-      \code{setExperimentHubOption()}:
-      TODO: Set cache options "CACHE", "URL", "MAXDOWNLOADS" ... 
-    }
   }
 }
 
@@ -275,13 +269,13 @@
 }
 
 \section{For developers}{
-  \code{createHubAccessors(metadata=FALSE): } This helper is intended to be
+  \code{createHubAccessors(pkgname, titles): } This helper is intended to be
   used by ExperimentHub package developers in their .onLoad() function in 
   zzz.R. It generates and exports functions by resource name which allows the 
   resource to be loaded with resource123() in addition to the standard method 
   via the ExperimentHub interface, e.g., ehub[["EH123"]]. When 'metadata=TRUE'
   just the metadata are displayed, when 'metadata=FALSE' the full resource is 
-  loaded.
+  loaded, e.g, resource123(metadata=TRUE). See vignette for more information. 
 }
 
 \author{Bioconductor Core Team}

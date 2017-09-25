@@ -1,0 +1,180 @@
+---
+title: "ExperimentHub: Access the ExperimentHub Web Service"
+output:
+  BiocStyle::html_document:
+    toc: true
+vignette: >
+  % \VignetteIndexEntry{ExperimentHub: Access the ExperimentHub Web Service}
+  % \VignetteDepends{ExperimentHub}
+  % \VignetteEngine{knitr::rmarkdown}
+  % \VignetteEncoding{UTF-8}
+---
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
+
+The `ExperimentHub` server provides easy _R / Bioconductor_ access to
+large files of data.
+
+# ExperimentHub objects
+
+The `r Biocpkg("ExperimentHub")` package provides a client interface
+to resources stored at the ExperimentHub web service. It has similar 
+functionality to `r Biocpkg("AnnotationHub")` package.
+
+```{r library, message=FALSE}
+library(ExperimentHub)
+```
+
+The `r Biocpkg("ExperimentHub")` package is straightforward to use.
+Create an `ExperiemntHub` object
+
+```{r ExperiemntHub}
+eh = ExperimentHub()
+```
+
+Now at this point you have already done everything you need in order
+to start retrieving experiment data.  For most operations, using the
+`ExperimentHub` object should feel a lot like working with a familiar
+`list` or `data.frame` and has all of the functionality of an `Hub`
+object like  `r Biocpkg("AnnotationHub")` package's `AnnotationHub` 
+object. 
+
+Lets take a minute to look at the show method for the hub object eh 
+
+```{r show}
+eh
+```
+
+You can see that it gives you an idea about the different types of data that are present inside the hub. You can see where the data is coming from (dataprovider), as well as what species have samples present (species), what kinds of R data objects could be returned (rdataclass). We can take a closer look at all the kinds of data providers that are available by simply looking at the contents of dataprovider as if it were the column of a data.frame object like this:
+
+```{r dataprovider}
+unique(eh$dataprovider)
+```
+
+In the same way, you can also see data from different species inside the hub by looking at the contents of species like this: 
+
+```{r species}
+head(unique(eh$species))
+```
+
+And this will also work for any of the other types of metadata present.  You can learn which kinds of metadata are available by simply hitting the tab key after you type 'eh$'.  In this way you can explore for yourself what kinds of data are present in the hub right from the command line. This interface also allows you to access the hub programatically to extract data that matches a particular set of criteria.
+
+Another valuable types of metadata to pay attention to is the rdataclass.
+
+```{r rdataclass}
+head(unique(eh$rdataclass))
+```
+
+The rdataclass allows you to see which kinds of R objects the hub will return to you.  This kind of information is valuable both as a means to filter results and also as a means to explore and learn about some of the kinds of experimenthub objects that are widely available for the project.  Right now this is a pretty short list, but over time it should grow as we support more of the different kinds of experimenthub objects via the hub.
+
+
+Now lets try getting the data files associated with the `r
+Biocpkg("alpineData")` package using the query method. The query method lets you
+search rows for specific strings, returning an `ExperimentHub` instance with
+just the rows matching the query. The `preparerclass` column of metadata
+monitors which package is associated with the ExperimentHub data. 
+
+One can get chain files for Drosophila melanogaster from UCSC with:
+
+```{r alpine}
+apData <- query(eh, "alpineData")
+apData
+```
+Query has worked and you can now see that the only data present is provided by
+the "alpineData". 
+ 
+The metadata underlying this hub object can be retrieved by you 
+
+```{r show2}
+apData$preparerclass
+df <- mcols(apData)
+```
+
+By default the show method will only display the first 5 and last 5  rows.
+There are hundreds of records present in the hub.
+
+```{r length}
+length(eh)
+```
+Lets look at another example, where we pull down only data 
+from the hub for species "mus musculus".
+
+```{r subset}
+mm <- query(eh, "mus musculus")
+mm
+```
+
+We can also look at the `ExperimentHub` object in a browser using the
+`display()` function. We can then filter the `ExperimentHub` object
+using the Global search field on the top right corner of the page or the in-column search fields.
+
+```{r display, eval=FALSE}
+d <- display(eh)
+```
+
+# Using `ExperimentHub` to retrieve data
+
+Looking back at our alpineData file example, if we are interested in the first file, we can gets its metadata using
+
+```{r dm2}
+apData
+apData["EH166"]
+```
+We can download the file using
+
+```{r dm3}
+apData[["EH166"]]
+```
+Each file is retrieved from the ExperimentHub server and the file is
+also cache locally, so that the next time you need to retrieve it,
+it should download much more quickly.
+
+# Configuring `ExperimentHub` objects
+
+When you create the `ExperimentHub` object, it will set up the object
+for you with some default settings.  See `?ExperimentHub` for ways to
+customize the hub source, the local cache, and other instance-specific
+options, and `?getExperimentHubOption` to get or set package-global 
+options for use across sessions. 
+
+If you look at the object you will see some helpful information about
+it such as where the data is cached and where online the hub server is
+set to.
+
+```{r show-2}
+eh
+```
+
+By default the `ExperimentHub` object is set to the latest
+`snapshotData` and a snapshot version that matches the version of
+_Bioconductor_ that you are using. You can also learn about these data
+with the appropriate methods.
+
+```{r snapshot}
+snapshotDate(eh)
+```
+
+If you are interested in using an older version of a snapshot, you can
+list previous versions with the `possibleDates()` like this:
+
+```{r possibleDates}
+pd <- possibleDates(eh)
+pd
+```
+
+Set the dates like this:
+
+```{r setdate, eval=FALSE}
+snapshotDate(ah) <- pd[1]
+```
+
+# ExperimentHub
+
+
+# Session info
+
+```{r sessionInfo}
+sessionInfo()
+```
