@@ -1,3 +1,23 @@
+CHANGES IN VERSION 1.4.0
+------------------------
+
+NEW FEATURES
+
+    o ExperimentHub will now work offline utilizing argument 'localHub'; will
+    also use this option automatically if no internet connection is detected.
+
+    o Add new vignette for creating ExperimentHub packages
+
+MODIFICATIONS
+
+    o Update AnnotationHub dependency; new resource class RDSResource
+
+    o move listResources and loadResources from AnnotationHub to here
+
+BUG FIXES
+
+    o Fix typo in createHubAccessors with hard coded value
+
 VERSION 1.0.0
 ------------------------
 
