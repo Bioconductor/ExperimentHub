@@ -1,13 +1,13 @@
 ---
-title: "Introduction to ExperimentHubData"
-author: "Valerie Obenchain"
-date: "Modified: August 2017. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
+title: "Creating An ExperimentHub Package"
+author: "Valerie Obenchain and Lori Shepherd"
+date: "Modified: October 2017. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
 output:
   BiocStyle::html_document:
     toc: true
     toc_depth: 2
 vignette: >
-  %\VignetteIndexEntry{Introduction to ExperimentHubData}
+  %\VignetteIndexEntry{Creating An ExperimentHub Package}
   %\VignetteEngine{knitr::rmarkdown}
 ---
 
@@ -285,16 +285,10 @@ Once the upload is complete, email Lori.Shepherd@roswellpark.org to continue the
 process
 
 
-# `ExperimentHub_docker`
+# Validating
 
-The [ExperimentHub_docker](https://github.com/Bioconductor/ExperimentHub_docker)
-offers an isolated test environment for inserting / extracting metadata records
-in the `ExperimentHub` database. The README in the package explains how to
-set up the Docker and inserting records is done with
-`ExperimentHub::addResources()`.
+The best way to validate record metadata is to  read inst/extdata/metadata.csv
+with `ExperimentHubData::readMetadataFromCsv()`. If that is successful the
+metadata are ready to go.
 
-In general this level of testing should not be necessary when submitting
-a package with new resources. The best way to validate record metadata is to 
-read inst/extdata/metadata.csv with `ExperimentHubData::readMetadataFromCsv()`.
-If that is successful the metadata are ready to go.
 
