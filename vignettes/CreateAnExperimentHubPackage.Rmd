@@ -1,7 +1,7 @@
 ---
 title: "Creating An ExperimentHub Package"
 author: "Valerie Obenchain and Lori Shepherd"
-date: "Modified: October 2017. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
+date: "Modified: November 2017. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
 output:
   BiocStyle::html_document:
     toc: true
@@ -57,8 +57,10 @@ unless otherwise stated.
   from the code in inst/scripts/make-metadata.R where the final data are
   written out with `write.csv(..., row.names=FALSE)`. The required column 
   names and data types are specified in 
-  `AnnotationHub::readMetadataFromCsv()`. See ?`readMetadataFromCsv` for 
-  details.
+  `ExperimentHubData::makeExperimentHubMetadata` See
+  ?`ExperimentHubData::makeExperimentHubMetadata` for details.
+
+
 
 ### `inst/scripts/`
 
@@ -74,8 +76,9 @@ unless otherwise stated.
 
 - `make-metadata.R`: 
   A script to make the metadata.csv file located in inst/extdata of the 
-  package. See ?`readMetadataFromCsv` for a description of expected fields 
-  and data types.  `readMetadataFromCsv()` can be used to validate the 
+  package. See ?`ExperimentHubData::makeExperimentHubMetadata` for a description
+  of expected fields and data types.
+  `ExperimentHubData::makeExperimentHubMetadata()` can be used to validate the
   metadata.csv file before submitting the package.
 
 ### `vignettes/`
@@ -288,7 +291,7 @@ process
 # Validating
 
 The best way to validate record metadata is to  read inst/extdata/metadata.csv
-with `ExperimentHubData::readMetadataFromCsv()`. If that is successful the
+with `ExperimentHubData::makeExperimentHubMetadata()`. If that is successful the
 metadata are ready to go.
 
 
