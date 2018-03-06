@@ -17,7 +17,7 @@
 \alias{[[,ExperimentHub,character,missing-method}
 \alias{[[,ExperimentHub,numeric,missing-method}
 
-% Other 
+% Other
 \alias{listResources,ExperimentHub-method}
 \alias{loadResources,ExperimentHub-method}
 \alias{createHubAccessors}
@@ -34,7 +34,7 @@
   Use \code{ExperimentHub()} to retrieve information about all records
   in the hub. If working offline, add argument \code{localHub=TRUE} to
   work with a local, non-updated hub; It will only have resources
-  available that have previously been downloaded. 
+  available that have previously been downloaded.
 
   Discover records in a hub using \code{mcols()}, \code{query()},
   \code{subset()}, \code{[}, and \code{display()}.
@@ -51,17 +51,17 @@
   snapshot dates valid for the current version of Bioconductor.
 
   The location of the local cache can be found (and updated) with
-  \code{getExperimentHubCache} and \code{setExperimentHubCache}; 
+  \code{getExperimentHubOption} and \code{setExperimentHubOption};
   \code{removeCache} removes all cache resources.
 }
 
 \section{Constructors}{
   \describe{
     \item{}{
-      \code{ExperimentHub(..., hub=getExperimentHubOption("URL"), 
-        cache=getAnnotationHubOption("CACHE"),
-        proxy=getAnnotationHubOption("PROXY"),
-        localHub=FALSE)}:
+      \code{ExperimentHub(..., hub=getExperimentHubOption("URL"),
+	cache=getExperimentHubOption("CACHE"),
+	proxy=getExperimentHubOption("PROXY"),
+	localHub=FALSE)}:
 
       Create an \code{ExperimentHub} instance, possibly updating the
       current database of records.
@@ -100,12 +100,12 @@
     }
     \item{}{
       \code{package(x)}:
-      Returns a named character vector of package name associated with 
+      Returns a named character vector of package name associated with
       the hub resource.
     }
     \item{}{
       \code{recordStatus(x, record)}:
-      Returns a \code{data.frame} of the record id and status. \code{x} must 
+      Returns a \code{data.frame} of the record id and status. \code{x} must
       be a \code{Hub} object and \code{record} must be a \code{character(1)}.
       Can be used to discover why a resource was removed from the hub.
     }
@@ -114,34 +114,34 @@
       Get the metadata columns describing each record. Columns include:
       \describe{
 
-        \item{title}{Record title, frequently the file name of the
-          object.}
+	\item{title}{Record title, frequently the file name of the
+	  object.}
 
-        \item{dataprovider}{Original provider of the resource, e.g.,
-          Ensembl, UCSC.}
+	\item{dataprovider}{Original provider of the resource, e.g.,
+	  Ensembl, UCSC.}
 
-        \item{species}{The species for which the record is most
-          relevant, e.g., \sQuote{Homo sapiens}.}
+	\item{species}{The species for which the record is most
+	  relevant, e.g., \sQuote{Homo sapiens}.}
 
-        \item{taxonomyid}{NCBI taxonomy identifier of the species.}
+	\item{taxonomyid}{NCBI taxonomy identifier of the species.}
 
-        \item{genome}{Genome build relevant to the record, e.g., hg19.}
+	\item{genome}{Genome build relevant to the record, e.g., hg19.}
 
-        \item{description}{Textual description of the resource,
-          frequently automatically generated from file path and other
-          information available when the record was created.}
+	\item{description}{Textual description of the resource,
+	  frequently automatically generated from file path and other
+	  information available when the record was created.}
 
-        \item{tags}{Single words added to the record to facilitate
-          identification, e.g,. TCGA, Roadmap.}
+	\item{tags}{Single words added to the record to facilitate
+	  identification, e.g,. TCGA, Roadmap.}
 
-        \item{rdataclass}{The class of the R object used to represent
-          the object when imported into R, e.g., \code{GRanges},
-          \code{VCFFile}.}
+	\item{rdataclass}{The class of the R object used to represent
+	  the object when imported into R, e.g., \code{GRanges},
+	  \code{VCFFile}.}
 
-        \item{sourceurl}{Original URL of the resource.}
+	\item{sourceurl}{Original URL of the resource.}
 
-        \item{sourectype}{Format of the original resource, e.g., BED
-          file.}
+	\item{sourectype}{Format of the original resource, e.g., BED
+	  file.}
       }
     }
   }
@@ -175,15 +175,15 @@
       logical \code{`&`} across columns.
       e.g., \code{query(x, c("Homo sapiens", "hg19", "GTF"))}.
       \describe{
-        \item{\code{pattern}}{A character vector of patterns to search
-          (via \code{grepl}) for in any of the \code{mcols()} columns.}
-        \item{\code{ignore.case}}{A logical(1) vector indicating whether
-          the search should ignore case (TRUE) or not (FALSE).}
-        \item{\code{pattern.op}}{Any function of two arguments,
-          describing how matches across pattern elements are to be
-          combined. The default \code{`&`} requires that only records
-          with \emph{all} elements of \code{pattern} in their metadata
-          columns are returned. \code{`&`}, \code{`|`} and \code{`!`}
+	\item{\code{pattern}}{A character vector of patterns to search
+	  (via \code{grepl}) for in any of the \code{mcols()} columns.}
+	\item{\code{ignore.case}}{A logical(1) vector indicating whether
+	  the search should ignore case (TRUE) or not (FALSE).}
+	\item{\code{pattern.op}}{Any function of two arguments,
+	  describing how matches across pattern elements are to be
+	  combined. The default \code{`&`} requires that only records
+	  with \emph{all} elements of \code{pattern} in their metadata
+	  columns are returned. \code{`&`}, \code{`|`} and \code{`!`}
 	  are most notably available. See \code{"?&"} or
 	  \code{?base::Ops} for more information.}
       }
@@ -195,7 +195,7 @@
       expression can reference columns of \code{mcols(x)}, and should
       return a logical vector of length \code{length(x)}.
       e.g., \code{subset(x, species == "Homo sapiens" &
-        genome=="GRCh38")}.
+	genome=="GRCh38")}.
     }
     \item{}{
       \code{display(object)}:
@@ -234,7 +234,7 @@
       resources in \code{x}, or removes all local resources
       corresponding to the records in \code{x} from the cache. In this case,
       \code{x} would typically be a small subset of ExperimentHub resources.
-    } 
+    }
     \item{}{
       \code{hubUrl(x)}:
       Gets the URL for the online ExperimentHub.
@@ -270,12 +270,12 @@
 
 \section{For developers}{
   \code{createHubAccessors(pkgname, titles): } This helper is intended to be
-  used by ExperimentHub package developers in their .onLoad() function in 
-  zzz.R. It generates and exports functions by resource name which allows the 
-  resource to be loaded with resource123() in addition to the standard method 
+  used by ExperimentHub package developers in their .onLoad() function in
+  zzz.R. It generates and exports functions by resource name which allows the
+  resource to be loaded with resource123() in addition to the standard method
   via the ExperimentHub interface, e.g., ehub[["EH123"]]. When 'metadata=TRUE'
-  just the metadata are displayed, when 'metadata=FALSE' the full resource is 
-  loaded, e.g, resource123(metadata=TRUE). See vignette for more information. 
+  just the metadata are displayed, when 'metadata=FALSE' the full resource is
+  loaded, e.g, resource123(metadata=TRUE). See vignette for more information.
 }
 
 \author{Bioconductor Core Team}
