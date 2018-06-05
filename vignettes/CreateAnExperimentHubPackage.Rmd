@@ -13,11 +13,11 @@ vignette: >
 
 # Overview
 
-`ExperimentHubData` provides tools to add or modify resources in 
+`ExperimentHubData` provides tools to add or modify resources in
 Bioconductor's `ExperimentHub`. This 'hub' houses curated data from courses,
-publications or experiments.  The resources are generally not files of raw data 
-(as can be the case in `AnnotationHub`) but instead are `R` / `Bioconductor` 
-objects such as GRanges, SummarizedExperiment, data.frame etc.  Each resource 
+publications or experiments.  The resources are generally not files of raw data
+(as can be the case in `AnnotationHub`) but instead are `R` / `Bioconductor`
+objects such as GRanges, SummarizedExperiment, data.frame etc.  Each resource
 has associated metadata that can be searched through the `ExperimentHub` client interface.
 
 # New resources
@@ -32,14 +32,14 @@ Below are the steps required for adding new resources.
 
 ## Notify `Bioconductor` team member
 
-The man page and vignette examples in the software package will not work until
+The man page and vignette examples in the data experiment package will not work until
 the data are available in `ExperimentHub`. Adding the data to AWS S3 and the
 metadata to the production database involves assistance from a `Bioconductor`
 team member.  Please read the section "Uploading Data to S3".
 
-## Building the software package
+## Building the data experiment package
 
-When a resource is downloaded from `ExperimentHub` the associated software
+When a resource is downloaded from `ExperimentHub` the associated data experiment
 package is loaded in the workspace making the man pages and vignettes readily
 available. Because documentation plays an important role in understanding these
 curated resources please take the time to develop clear man pages and a
@@ -47,24 +47,24 @@ detailed vignette. These documents provide essential background to the user and
 guide appropriate use the of resources.
 
 Below is an outline of package organization. The files listed are required
-unless otherwise stated. 
+unless otherwise stated.
 
 ### `inst/extdata/`
 
-- `metadata.csv`: 
+- `metadata.csv`:
   This file contains the metadata in the format of one row per resource
   to be added to the `ExperimentHub` database. The file should be generated
   from the code in inst/scripts/make-metadata.R where the final data are
-  written out with `write.csv(..., row.names=FALSE)`. The required column 
-  names and data types are specified in 
+  written out with `write.csv(..., row.names=FALSE)`. The required column
+  names and data types are specified in
   `ExperimentHubData::makeExperimentHubMetadata` See
   ?`ExperimentHubData::makeExperimentHubMetadata` for details.
 
-
+  An example data experiment package metadata.csv file can be found [here](https://github.com/Bioconductor/GSE62944/blob/master/inst/extdata/metadata.csv)
 
 ### `inst/scripts/`
 
-- `make-data.R`: 
+- `make-data.R`:
   A script describing the steps involved in making the data object(s). This
   includes where the original data were downloaded from, pre-processing,
   and how the final R object was made. Include a description of any
@@ -74,8 +74,8 @@ unless otherwise stated.
   appropriate loading method may need to be implemented. Please advise when
   reaching out for "Uploading Data to S3".
 
-- `make-metadata.R`: 
-  A script to make the metadata.csv file located in inst/extdata of the 
+- `make-metadata.R`:
+  A script to make the metadata.csv file located in inst/extdata of the
   package. See ?`ExperimentHubData::makeExperimentHubMetadata` for a description
   of expected fields and data types.
   `ExperimentHubData::makeExperimentHubMetadata()` can be used to validate the
@@ -83,19 +83,19 @@ unless otherwise stated.
 
 ### `vignettes/`
 
-- One or more vignettes describing analysis workflows. 
+- One or more vignettes describing analysis workflows.
 
 ### `R/`
-  
+
 - `zzz.R`: Optional. You can include a `.onLoad()` function in a zzz.R file that
   exports each resource name (i.e., title) into a function. This allows the data
   to be loaded by name, e.g., `resouce123()`.
 
     ```{r, eval=FALSE}
     .onLoad <- function(libname, pkgname) {
-        fl <- system.file("extdata", "metadata.csv", package=pkgname)
-        titles <- read.csv(fl, stringsAsFactors=FALSE)$Title
-        createHubAccessors(pkgname, titles)
+	fl <- system.file("extdata", "metadata.csv", package=pkgname)
+	titles <- read.csv(fl, stringsAsFactors=FALSE)$Title
+	createHubAccessors(pkgname, titles)
     }
     ```
 
@@ -111,20 +111,20 @@ unless otherwise stated.
 
 ### `man/`
 
-- package man page: 
+- package man page:
   The package man page serves as a landing point and should briefly describe
   all resources associated with the package. There should be an \alias
   entry for each resource title either on the package man page or individual
   man pages.
 
-- resource man pages: 
+- resource man pages:
   Resources can be documented on the same page, grouped by common type
   or have their own dedicated man pages.
 
 - document how data are loaded:
   Data can be accessed via the standard ExperimentHub interface with
-  single and double-bracket methods, e.g., 
-  
+  single and double-bracket methods, e.g.,
+
     ```{r, eval=FALSE}
     library(ExperimentHub)
     eh <- ExperimentHub()
@@ -132,8 +132,8 @@ unless otherwise stated.
     myfiles[[1]]        ## load the first resource in the list
     myfiles[["EH123"]]  ## load by EH id
     ```
-  
-- If a `.onLoad()` function is used to export each resource as a function 
+
+- If a `.onLoad()` function is used to export each resource as a function
   also document that method of loading, e.g.,
 
     ```{r, eval=FALSE}
@@ -156,31 +156,42 @@ unless otherwise stated.
 
 Data are not formally part of the software package and are stored separately in
 AWS S3 buckets.  The author should follow instructions in the
-section "Uploading Data to S3". 
+section "Uploading Data to S3".
 
 
 ## Metadata
 
-When you are satisfied with the representation of your resources in 
+When you are satisfied with the representation of your resources in
 make-metadata.R (which produces metadata.csv) the `Bioconductor` team
 member will add the metadata to the production database.
 
-## Package review 
+## Package review
 
 Once the data are in AWS S3 and the metadata have been added to the
 production database the man pages and vignette can be finalized. When the
-package passes R CMD build and check it can be submitted to the 
-[package tracker](https://github.com/Bioconductor/Contributions) for 
-review.
+package passes R CMD build and check it can be submitted to the
+[package tracker](https://github.com/Bioconductor/Contributions) for
+review. The package should be submitted without any of the data that is now
+located on S3; This keeps the package light weight and minimual size while still
+providing access to key large data files now stored on S3. If the data files
+were added to the github repository please see [removing large data files and
+clean git
+tree](http://bioconductor.org/developers/how-to/git/remove-large-data/) to
+remove the large files and reduce package size.
+
+Many times these data package are created as a suppliment to a software
+package. There is a process for submitting [mulitple package under the same
+issue](https://github.com/Bioconductor/Contributions#submitting-related-packages).
+
 
 
 # Add additional resources
 
 Metadata for new versions of the data can be added to the same package as they
-become available. 
+become available.
 
 * The titles for the new versions must be unique and not match the title of
-  any resource currently in ExperimentHub. Good practice would be to 
+  any resource currently in ExperimentHub. Good practice would be to
   include the version and / or genome build in the title.
 
 *  Make data available: see section on "Uploading Data to S3"
@@ -203,22 +214,22 @@ become available.
 Contact  Lori.Shepherd@roswellpark.org or maintainer@bioconductor.org with any
 questions.
 
-# Bug fixes 
+# Bug fixes
 
 A bug fix may involve a change to the metadata, data resource or both.
 
-## Update the resource 
+## Update the resource
 
 * The replacement resource must have the same name as the original and be at the
   same location (path)
 
 * Notify Lori.Shepherd@roswellpark.org that you want to replace the data
-  and make the files available: see section "Uploading Data to S3". 
+  and make the files available: see section "Uploading Data to S3".
 
 ## Update the metadata
 
 New metadata records can be added for new resources but modifying existing
-records is discouraged. Record modification will only be done in the case of 
+records is discouraged. Record modification will only be done in the case of
 bug fixes.
 
 * Notify Lori.Shepherd@roswellpark.org that you want to change the metadata
@@ -233,20 +244,20 @@ bug fixes.
 Removing resources should be done with caution. The intent is that
 ExperimentHub be a 'reproducible' resource by providing a stable snapshot
 of the data. Data made available in Bioconductor version x.y.z should be
-available for all versions greater than x.y.z. Unfortunately this is not 
-always possible. If you find it necessary to remove data from ExperimentHub 
+available for all versions greater than x.y.z. Unfortunately this is not
+always possible. If you find it necessary to remove data from ExperimentHub
 please contact Lori.shepherd@roswellpark.org or maintainer@bioconductor.org for
 assistance.
 
-When a resource is removed from ExperimentHub the 'status' field in the 
+When a resource is removed from ExperimentHub the 'status' field in the
 metadata is modified to explain why they are no longer available. Once
-this status is changed the `ExperimentHub()` constructor will not list the 
-resource among the available ids. An attempt to extract the resource with 
+this status is changed the `ExperimentHub()` constructor will not list the
+resource among the available ids. An attempt to extract the resource with
 '[[' and the EH id will return an error along with the status message.
 
 # Uploading Data to S3
 
-Instead of providing the data files via dropbox, ftp, etc. we will grant 
+Instead of providing the data files via dropbox, ftp, etc. we will grant
 temporary access to an S3 bucket where you can upload your data. Please
 email Lori.Shepherd@roswellpark.org for access.
 
@@ -254,9 +265,9 @@ You will be given access to the 'AnnotationContributor' user. Ensure that the
 `AWS CLI` is installed on your machine. See instructions for installing `AWS
 CLI` [here](https://aws.amazon.com/cli/). Once you  have requested access you
 will be emailed a set of keys. There are two options to set the profile up for
-AnnotationContributor 
+AnnotationContributor
 
-1.  Update your `.aws/config` file to include the following updating the keys 
+1.  Update your `.aws/config` file to include the following updating the keys
 accordingly:
 
 ```
@@ -273,7 +284,7 @@ appropriate information from above
 aws configure --profile AnnotationContributor
 ```
 
-After the configuration is set you should be able to upload resources using 
+After the configuration is set you should be able to upload resources using
 
 ```
 aws --profile AnnotationContributor s3 cp test_file.txt s3://annotation-contributor/test_file.txt --acl public-read
@@ -282,7 +293,7 @@ aws --profile AnnotationContributor s3 cp test_file.txt s3://annotation-contribu
 
 Please upload the data with the appropriate directory structure, including
 subdirectories as necessary (i.e. top directory must be software package name,
-then if applicable, subdirectories of versions, ...) 
+then if applicable, subdirectories of versions, ...)
 
 Once the upload is complete, email Lori.Shepherd@roswellpark.org to continue the
 process
@@ -293,5 +304,3 @@ process
 The best way to validate record metadata is to  read inst/extdata/metadata.csv
 with `ExperimentHubData::makeExperimentHubMetadata()`. If that is successful the
 metadata are ready to go.
-
-
