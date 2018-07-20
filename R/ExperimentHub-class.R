@@ -61,7 +61,7 @@ setMethod("cache", "ExperimentHub",
     success <- paste0("see ?", pkg, " and browseVignettes('",
                       pkg, "') for documentation")
     if (!pkg %in% rownames(installed.packages()))
-        biocLite(pkg, suppressUpdates=TRUE)
+        BiocManager::install(pkg, suppressUpdates=TRUE)
     if (pkg %in% rownames(installed.packages())) {
         suppressPackageStartupMessages({
             require(pkg, quietly = TRUE, character.only = TRUE)

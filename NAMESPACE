@@ -2,7 +2,7 @@ import(methods)
 import(BiocGenerics)
 import(S4Vectors)
 import(AnnotationHub)
-importFrom(BiocInstaller, biocLite)
+importFrom(BiocManager, install)
 importFrom(utils, installed.packages)
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
