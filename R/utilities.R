@@ -18,16 +18,17 @@
 createHubAccessors <- function(pkgname, titles) {
     ## map titles to ExperimentHub identifiers
     eh <- query(ExperimentHub(), pkgname)
-    ehids <- sapply(titles, function(title) {
-        ehid <- names(query(eh, title))
+
+    ehids <- vapply(titles, function(tle, exactMatch) {
+        ehid <- names(subset(eh, title == tle))
         if (length(ehid) == 0L) {
-            stop(sQuote(title), " not found in ExperimentHub")
+            stop(sQuote(tle), " not found in ExperimentHub")
         } else if (length(ehid) != 1L) {
-            stop(sQuote(title), 
+            stop(sQuote(tle),
                  " matches more than 1 ExperimentHub resource")
         }
         ehid
-    })
+    }, character(1))
 
     ## create and export accessor functions in package namespace
     ns <- asNamespace(pkgname)
@@ -53,7 +54,7 @@ createHubAccessors <- function(pkgname, titles) {
         sub
 }
 
-setMethod("listResources", "ExperimentHub", 
+setMethod("listResources", "ExperimentHub",
     function(hub, package, filterBy=character()) {
         metadata <- .filterResources_EH(package, filterBy)
         mcols(metadata)$title
@@ -63,5 +64,5 @@ setMethod("loadResources", "ExperimentHub",
     function(hub, package, filterBy=character()) {
         metadata <- .filterResources_EH(package, filterBy)
         eh <- ExperimentHub()
-        lapply(names(metadata), function(i) eh[[i]]) 
+        lapply(names(metadata), function(i) eh[[i]])
 })
