@@ -43,12 +43,13 @@ setMethod("package", "ExperimentHub",
 ###
 
 setMethod("cache", "ExperimentHub",
-    function(x, ...) {
+    function(x, ..., force=FALSE) {
         callNextMethod(x,
                        cache.root=".ExperimentHub", 
                        cache.fun=setExperimentHubOption,
                        proxy=getExperimentHubOption("PROXY"), 
-                       max.downloads=getExperimentHubOption("MAX_DOWNLOADS"))
+                       max.downloads=getExperimentHubOption("MAX_DOWNLOADS"),
+                       force=force)
     }
 )
 
@@ -71,18 +72,18 @@ setMethod("cache", "ExperimentHub",
 }
 
 setMethod("[[", c("ExperimentHub", "numeric", "missing"),
-    function(x, i, j, ...)
+    function(x, i, j, ..., force=FALSE)
 {
     if (length(x[i]) != 1L)
         stop("'i' must be length 1")
     pkg <- AnnotationHub:::.count_resources(x[i], "preparerclass")
     .tryload(pkg)
-    callNextMethod(x, i, j, ...)
+    callNextMethod(x, i, j, ..., force=force)
     ## or AnnotationHub:::.Hub_get1(x[i])
 })
 
 setMethod("[[", c("ExperimentHub", "character", "missing"),
-    function(x, i, j, ...)
+    function(x, i, j, ..., force=FALSE)
 {
     if (length(i) != 1L)
         stop("'i' must be length 1")
@@ -92,7 +93,7 @@ setMethod("[[", c("ExperimentHub", "character", "missing"),
 
     pkg <- AnnotationHub:::.count_resources(x[i], "preparerclass")
     .tryload(pkg)
-    callNextMethod(x, i, j, ...)
+    callNextMethod(x, i, j, ..., force=force)
     ## or AnnotationHub:::.Hub_get1(x[idx])
 })
 
