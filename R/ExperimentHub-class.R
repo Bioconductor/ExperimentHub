@@ -72,7 +72,7 @@ setMethod("cache", "ExperimentHub",
 }
 
 setMethod("[[", c("ExperimentHub", "numeric", "missing"),
-    function(x, i, j, ..., force=FALSE, verbose)
+    function(x, i, j, ..., force=FALSE, verbose=TRUE)
 {
     if (length(x[i]) != 1L)
         stop("'i' must be length 1")
@@ -83,7 +83,7 @@ setMethod("[[", c("ExperimentHub", "numeric", "missing"),
 })
 
 setMethod("[[", c("ExperimentHub", "character", "missing"),
-    function(x, i, j, ..., force=FALSE, verbose)
+    function(x, i, j, ..., force=FALSE, verbose=TRUE)
 {
     if (length(i) != 1L)
         stop("'i' must be length 1")
