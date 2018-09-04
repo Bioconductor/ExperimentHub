@@ -137,8 +137,8 @@ unless otherwise stated.
   also document that method of loading, e.g.,
 
     ```{r, eval=FALSE}
-    resourceA(meta = FALSE) ## data are loaded
-    resourceA(meta = TRUE)  ## metadata are displayed
+    resourceA(metadata = FALSE) ## data are loaded
+    resourceA(metadata = TRUE)  ## metadata are displayed
     ```
 
 ### `DESCRIPTION` / `NAMESPACE`
