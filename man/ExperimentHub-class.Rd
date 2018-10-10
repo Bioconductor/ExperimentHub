@@ -43,7 +43,8 @@
   resource, the corresponding files or other hub resources are
   downloaded from the internet to a local cache. On this and all
   subsequent uses the files are quickly input from the cache into the R
-  session.
+  session. If a user wants to download the file again and not use the
+  cache version add the argument \code{force=TRUE}.
 
   \code{ExperimentHub} records can be added (and sometimes removed) at
   any time. \code{snapshotDate()} restricts hub records to those
@@ -162,9 +163,11 @@
       to subset the hub, e.g., \code{x[x$species == "Homo sapiens"]}.
     }
     \item{}{
-      \code{x[[i]]}:
+      \code{x[[i, force=FALSE, verbose=TRUE]]}:
       Numerical or character scalar to retrieve (if necessary) and
-      import the resource into R.
+      import the resource into R. If a user wants to download the file
+      again and not use the cache version add the argument
+      \code{force=TRUE}. \code{verbose=FALSE} will quiet status messages.
     }
     \item{}{
       \code{query(x, pattern, ignore.case=TRUE, pattern.op= `&`)}:
