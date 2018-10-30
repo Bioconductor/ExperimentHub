@@ -1,7 +1,7 @@
 Package: ExperimentHub
 Type: Package
 Title: Client to access ExperimentHub resources
-Version: 1.7.7
+Version: 1.8.0
 Author: Bioconductor Package Maintainer <maintainer@bioconductor.org>
 Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
 Description: This package provides a client for the Bioconductor
