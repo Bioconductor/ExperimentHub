@@ -50,7 +50,7 @@ eh
 You can see that it gives you an idea about the different types of data that are present inside the hub. You can see where the data is coming from (dataprovider), as well as what species have samples present (species), what kinds of R data objects could be returned (rdataclass). We can take a closer look at all the kinds of data providers that are available by simply looking at the contents of dataprovider as if it were the column of a data.frame object like this:
 
 ```{r dataprovider}
-unique(eh$dataprovider)
+head(unique(eh$dataprovider))
 ```
 
 In the same way, you can also see data from different species inside the hub by looking at the contents of species like this: 
