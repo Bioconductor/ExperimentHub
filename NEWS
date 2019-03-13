@@ -1,3 +1,15 @@
+CHANGES IN VERSION 1.9.0
+------------------------
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o The Hubs have been updated to use BiocFileCache as a backend utility for
+    managing and downloading resources. This allows for file specific caching
+    mechanism. This change is a significant user change as it changed the
+    default directories for the Hubs (AnnotationHub/ExperimentHub) as well as
+    the base directory no longer being hidden.
+
+
 CHANGES IN VERSION 1.4.0
 ------------------------
 

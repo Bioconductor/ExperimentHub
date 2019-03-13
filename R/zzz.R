@@ -1,4 +1,4 @@
-.CACHE_ROOT <- ".ExperimentHub"
+.CACHE_ROOT <- "ExperimentHub"
 
 .onLoad <- function(libname, pkgname, ...) {
     ## options from getOption or Sys.env or default, in that order
@@ -15,10 +15,8 @@
         setExperimentHubOption("URL", opt)
     }
     if (is.null(getExperimentHubOption("CACHE"))) {
-        path <- switch(.Platform$OS.type, unix = path.expand("~/"),
-                       windows= file.path(gsub("\\\\", "/",
-                       Sys.getenv("HOME")), "AppData"))
-        opt <- getOption("EXPERIMENT_HUB_CACHE", file.path(path, .CACHE_ROOT))
+        path <- user_cache_dir(appname=.CACHE_ROOT)
+        opt <- getOption("EXPERIMENT_HUB_CACHE", path)
         opt <- Sys.getenv("EXPERIMENT_HUB_CACHE", opt)
         setExperimentHubOption("CACHE", opt)
     }

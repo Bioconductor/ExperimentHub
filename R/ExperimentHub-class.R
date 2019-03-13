@@ -6,16 +6,23 @@
 setClass("ExperimentHub", contains="Hub")
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### Constructor 
+### Constructor
 ###
 
 ExperimentHub <-
     function(..., hub=getExperimentHubOption("URL"),
              cache=getExperimentHubOption("CACHE"),
              proxy=getExperimentHubOption("PROXY"),
-             localHub=FALSE) 
+             localHub=FALSE)
 {
-    connect <- curl::has_internet()
+    if (is.null(proxy)){
+        connect <- curl::has_internet()
+    } else {
+        connect <- TRUE
+        message("Cannot determine internet connection.",
+                "\n If you experience connection issues consider ",
+                "using 'localHub=TRUE'")
+    }
     if (!connect && !localHub){
         message("No internet connection using 'localHub=TRUE'")
         localHub <- !connect
@@ -24,7 +31,7 @@ ExperimentHub <-
 }
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### Accessor-like methods 
+### Accessor-like methods
 ###
 
 setMethod("package", "ExperimentHub",
@@ -45,16 +52,16 @@ setMethod("package", "ExperimentHub",
 setMethod("cache", "ExperimentHub",
     function(x, ..., force=FALSE, verbose=FALSE) {
         callNextMethod(x,
-                       cache.root=".ExperimentHub", 
+                       cache.root="ExperimentHub",
                        cache.fun=setExperimentHubOption,
-                       proxy=getExperimentHubOption("PROXY"), 
+                       proxy=getExperimentHubOption("PROXY"),
                        max.downloads=getExperimentHubOption("MAX_DOWNLOADS"),
                        force=force, verbose=verbose)
     }
 )
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### Subsetting 
+### Subsetting
 ###
 
 .tryload <- function(pkg) {
@@ -98,14 +105,14 @@ setMethod("[[", c("ExperimentHub", "character", "missing"),
 })
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### Show 
+### Show
 ###
 
-setMethod("show", "ExperimentHub", function(object) 
+setMethod("show", "ExperimentHub", function(object)
 {
     len <- length(object)
     cat(sprintf("%s with %d record%s\n", class(object), len,
                 ifelse(len == 1L, "", "s")))
     cat("# snapshotDate():", snapshotDate(object), "\n")
-    callNextMethod(object) 
+    callNextMethod(object)
 })

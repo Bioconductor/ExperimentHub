@@ -4,6 +4,8 @@ import(S4Vectors)
 import(AnnotationHub)
 importFrom(BiocManager, install)
 importFrom(utils, installed.packages)
+import(BiocFileCache)
+import(rappdirs)
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Export S4 classes
