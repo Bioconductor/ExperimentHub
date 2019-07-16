@@ -13,7 +13,7 @@ ExperimentHub <-
     function(..., hub=getExperimentHubOption("URL"),
              cache=getExperimentHubOption("CACHE"),
              proxy=getExperimentHubOption("PROXY"),
-             localHub=FALSE)
+             localHub=getExperimentHubOption("LOCALHUB"))
 {
     if (is.null(proxy)){
         connect <- curl::has_internet()
