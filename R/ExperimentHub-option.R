@@ -24,7 +24,7 @@ setExperimentHubOption <- function(arg, value)
         stopifnot(isSingleInteger(value))
         value
     }, PROXY={
-        if (is.null(value) || inherits(value, "request"))
+        if (is.null(value) | inherits(value, "request"))
             value
         else if (isSingleString(value)) {
             .httr_proxy(value)
