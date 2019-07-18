@@ -1,3 +1,18 @@
+CHANGES IN VERSION 1.11.0
+------------------------
+
+NEW FEATURES
+
+    o (1.11.2) system environment variable to control localHub option for
+    creating hub based only on previously downloaded resources
+
+BUG FIXES
+
+    o (2.17.2) Fix localHub when no internet connection.  The internal use of
+    isDevel was preventing Hub creation when no internet connection. Fixed by
+    checking connection. This code pretained to orgDb filters
+
+
 CHANGES IN VERSION 1.9.0
 ------------------------
 
