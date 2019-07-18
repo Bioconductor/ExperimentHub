@@ -50,7 +50,7 @@ setExperimentHubOption(arg, value)
       specified by \code{http://username:password@proxy.dom.com:8080};
       \code{username:password} and port (e.g. \code{:8080}) are optional.}
 
-    \item{\dQuote{LOCALHUB}:}{logical(1). TRUE/FALSE should the
+    \item{\dQuote{LOCAL}:}{logical(1). TRUE/FALSE should the
       ExperimentHub create a hub consisting only of previously
       downloaded resourcesd. Default: FALSE.}
   }

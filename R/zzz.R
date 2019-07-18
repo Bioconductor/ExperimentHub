@@ -26,11 +26,11 @@
         if (nzchar(opt))
             setExperimentHubOption("PROXY", opt)
     }
-    if (is.null(getExperimentHubOption("LOCALHUB"))) {
-        opt <- getOption("EXPERIMENT_HUB_LOCALHUB", FALSE)
-        opt <- Sys.getenv("EXPERIMENT_HUB_LOCALHUB", opt)
+    if (is.null(getExperimentHubOption("LOCAL"))) {
+        opt <- getOption("EXPERIMENT_HUB_LOCAL", FALSE)
+        opt <- Sys.getenv("EXPERIMENT_HUB_LOCAL", opt)
         opt <- as.logical(opt)
-        setExperimentHubOption("LOCALHUB", opt)
+        setExperimentHubOption("LOCAL", opt)
     }
 
 }
