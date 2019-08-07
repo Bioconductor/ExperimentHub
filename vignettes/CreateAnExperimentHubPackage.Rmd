@@ -1,7 +1,7 @@
 ---
 title: "Creating An ExperimentHub Package"
 author: "Valerie Obenchain and Lori Shepherd"
-date: "Modified: November 2017. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
+date: "Modified: Aug 2019. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
 output:
   BiocStyle::html_document:
     toc: true
@@ -26,7 +26,8 @@ Resources are contributed to `ExperimentHub` in the form of a package.  The
 package contains the resource metadata, man pages, vignette and any supporting
 `R` functions the author wants to provide.  This is a similar design to the
 existing `Bioconductor` experimental data packages except the data are
-stored in AWS S3 buckets instead of the data/ directory of the package.
+stored in AWS S3 buckets or publicly accessibly sites instead of the data/
+directory of the package.
 
 Below are the steps required for adding new resources.
 
@@ -35,7 +36,9 @@ Below are the steps required for adding new resources.
 The man page and vignette examples in the data experiment package will not work until
 the data are available in `ExperimentHub`. Adding the data to AWS S3 and the
 metadata to the production database involves assistance from a `Bioconductor`
-team member.  Please read the section "Uploading Data to S3".
+team member. The metadata.csv file will have to be created before the data can
+officially be added to the hub (See inst/extdata section below). Please read the
+section of "Storage of Data Files".
 
 ## Building the data experiment package
 
@@ -152,28 +155,36 @@ unless otherwise stated.
   These helpers are designed to facilitate data discovery within a specific
   package vs within all of ExperimentHub.
 
+- The biocViews should contain terms from [ExperimentData](http://bioconductor.org/packages/release/BiocViews.html#___ExperimentData)
+and should also contain the term `ExperimentHub`.
+
+
 ## Data objects
 
-Data are not formally part of the software package and are stored separately in
-AWS S3 buckets.  The author should follow instructions in the
-section "Uploading Data to S3".
+Data are not formally part of the software package and are stored
+separately in a publicly accessible hosted site or by Bioconductor in an AWS S3
+buckets. The author should read the following section on "Storage of Data Files".
 
 
 ## Metadata
 
 When you are satisfied with the representation of your resources in
 make-metadata.R (which produces metadata.csv) the `Bioconductor` team
-member will add the metadata to the production database.
+member will add the metadata to the production database. Confirm the data in
+inst/exdata/metadata.csv are valid by running
+ExperimentHubData:::makeExperimentHubMetadata() on your package. Please address
+and warnings or errors.
+
 
 ## Package review
 
-Once the data are in AWS S3 and the metadata have been added to the
+Once the data are in AWS S3 or public site and the metadata have been added to the
 production database the man pages and vignette can be finalized. When the
 package passes R CMD build and check it can be submitted to the
 [package tracker](https://github.com/Bioconductor/Contributions) for
 review. The package should be submitted without any of the data that is now
-located on S3; This keeps the package light weight and minimual size while still
-providing access to key large data files now stored on S3. If the data files
+located remotely; This keeps the package light weight and minimual size while still
+providing access to key large data files now stored remotely If the data files
 were added to the github repository please see [removing large data files and
 clean git
 tree](http://bioconductor.org/developers/how-to/git/remove-large-data/) to
@@ -194,7 +205,8 @@ become available.
   any resource currently in ExperimentHub. Good practice would be to
   include the version and / or genome build in the title.
 
-*  Make data available: see section on "Uploading Data to S3"
+*  Make data available: either on publicly accessible site or see section on
+  "Uploading Data to S3"
 
 * Update make-metadata.R with the new metadata information
 
@@ -253,9 +265,31 @@ When a resource is removed from ExperimentHub the 'status' field in the
 metadata is modified to explain why they are no longer available. Once
 this status is changed the `ExperimentHub()` constructor will not list the
 resource among the available ids. An attempt to extract the resource with
-'[[' and the EH id will return an error along with the status message.
+'[[' and the EH id will return an error along with the status message. The
+function `getInfoOnIds` will display metadata information for any resource
+including resources still in the database but no longer available.
 
-# Uploading Data to S3
+# Storage of Data Files
+
+The data should not be included in the package. This keeps the package light
+weight and quick for a user to install. This allows the user to investigate functions and
+documentation without downloading large data files and only proceeding with the
+download when necessary. There are two options for storing data: Bioconductor
+AWS S3 buckets or hosting the data elsewhere on a publicly accessible site. See
+information below and choose the options that fits best for your situation.
+
+## Hosting Data on a Publicly Accessible Site
+
+Data can be accessed through the hubs from any publicly accessible site. The
+metadata.csv file[s] created will need the column `Location_Prefix` to indicate
+the hosted site. See more in the description of the metadata columns/fields
+below but as a quick example if the link to the data file is
+`ftp://mylocalserver/singlecellExperiments/dataSet1.Rds` an example breakdown of
+the `Location_Prefix` and `RDataPath` for this entry in the metadata.csv file
+would be `ftp://mylocalserver/` for the `Location_Prefix` and
+`singlecellExperiments/dataSet1.Rds` for the `RDataPath`.
+
+## Uploading Data to S3
 
 Instead of providing the data files via dropbox, ftp, etc. we will grant
 temporary access to an S3 bucket where you can upload your data. Please
@@ -287,16 +321,20 @@ aws configure --profile AnnotationContributor
 After the configuration is set you should be able to upload resources using
 
 ```
-aws --profile AnnotationContributor s3 cp test_file.txt s3://annotation-contributor/test_file.txt --acl public-read
-
-# to upload directory
+# To upload a full directory use recursive:
 
 aws --profile AnnotationContributor s3 cp test_dir s3://annotation-contributor/teset_dir --recursive --acl public-read
+
+# To upload a single file
+
+aws --profile AnnotationContributor s3 cp test_file.txt s3://annotation-contributor/test_file.txt --acl public-read
+
 ```
 
 Please upload the data with the appropriate directory structure, including
 subdirectories as necessary (i.e. top directory must be software package name,
-then if applicable, subdirectories of versions, ...)
+then if applicable, subdirectories of versions, ...). Please also do not forget
+to use the flag `--acl public-read`; This allows read access to the data file.
 
 Once the upload is complete, email Lori.Shepherd@roswellpark.org to continue the
 process. To add the data officially the data will need to be uploaded and the
@@ -368,6 +406,20 @@ file. Briefly, a description of the metadata columns required:
 
 Any additional columns in the metadata.csv file will be ignored but could be
 included for internal reference.
+
+More on Location_Prefix and RDataPath. These two fields make up the complete
+file path url for downloading the data file. If using the Bioconductor AWS S3 bucket the
+Location_Prefix should not be included in the metadata file[s] as this field
+will be populated automatically.  The RDataPath will be the directory structure
+you uploaded to S3. If you uploaded a directory `MyAnnotation/`, and that
+directory had a subdirectory `v1/` that contained two files `counts.rds` and
+`coldata.rds`, your metadata file will contain two rows and the RDataPaths would
+be `MyAnnotation/v1/counts.rds` and `MyAnnotation/v1/coldata.rds`.  If you
+host your data on a publicly accessible site you must include a base url as the
+`Location_Prefix`. If your data file was at
+`ftp://myinstiututeserver/biostats/project2/counts.rds`, your metadata file will
+have one row and the `Location_Prefix` would be `ftp://myinstiututeserver/` and
+the `RDataPath` would be `biostats/project2/counts.rds`.
 
 This is a dummy example but hopefully it will give you an idea of the format.
 Let's say I have a package myExperimentPackage and I upload two files one a
