@@ -5,10 +5,12 @@ NEW FEATURES
 
     o (1.11.2) system environment variable to control localHub option for
     creating hub based only on previously downloaded resources
+    o (1.11.5) With change in AnnotationHub. All force redownload of Hub sqlite
+    file with refreshHub 
 
 BUG FIXES
 
-    o (2.17.2) Fix localHub when no internet connection.  The internal use of
+    o (1.11.2) Fix localHub when no internet connection.  The internal use of
     isDevel was preventing Hub creation when no internet connection. Fixed by
     checking connection. This code pretained to orgDb filters
 

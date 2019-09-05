@@ -4,6 +4,7 @@
 % Classes
 \alias{class:ExperimentHub}
 \alias{ExperimentHub-class}
+\alias{refreshHub}
 
 % Constructor
 \alias{ExperimentHub}
@@ -34,7 +35,9 @@
   Use \code{ExperimentHub()} to retrieve information about all records
   in the hub. If working offline, add argument \code{localHub=TRUE} to
   work with a local, non-updated hub; It will only have resources
-  available that have previously been downloaded.
+  available that have previously been downloaded. To force redownload of
+  the hub, \code{refreshHub(hubClass="ExperimentHub")} can be utilized.
+
 
   Discover records in a hub using \code{mcols()}, \code{query()},
   \code{subset()}, \code{[}, and \code{display()}.
@@ -246,6 +249,14 @@
       \code{hubCache(x)}:
       Gets the file system location of the local ExperimentHub cache.
     }
+    \item{}{
+      \code{refreshHub(..., hub, cache, proxy,
+        hubClass=c("AnnotationHub", "ExperimentHub"))}:
+      Force redownload of Hub sqlite file. This returns a Hub object as
+      if calling the constructor (ie. ExperimentHub()). For force
+      redownload specifically for ExperimentHub the base call should be
+      \code{refreshHub(hubClass="ExperimentHub")}
+    }   
     \item{}{
       \code{removeCache(x)}:
       Removes local ExperimentHub database and all related resources. After
