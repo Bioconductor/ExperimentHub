@@ -323,7 +323,7 @@ After the configuration is set you should be able to upload resources using
 ```
 # To upload a full directory use recursive:
 
-aws --profile AnnotationContributor s3 cp test_dir s3://annotation-contributor/teset_dir --recursive --acl public-read
+aws --profile AnnotationContributor s3 cp test_dir s3://annotation-contributor/test_dir --recursive --acl public-read
 
 # To upload a single file
 
@@ -366,7 +366,7 @@ file. Briefly, a description of the metadata columns required:
   is the current devel version of Bioconductor.
 * Genome: 'character(1)'. Genome. Can be NA.
 * SourceType: 'character(1)'. Format of original data, e.g., FASTA, BAM, BigWig,
-  etc. 'getValidSourceTypes()' list currently acceptable values. If nothing seems
+  etc. 'AnnotationHubData::getValidSourceTypes()' list currently acceptable values. If nothing seems
   appropiate for your data reach out to lori.shepherd@roswellpark.org
 * SourceUrl: 'character(1)'. Location of original data files. Multiple urls
   should be provided as a comma separated string. If the data is simulated we
