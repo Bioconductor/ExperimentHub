@@ -1,3 +1,15 @@
+CHANGES IN VERSION 1.13.0
+------------------------
+
+USER-VISIBLE CHANGES
+
+    o (1.13.1) Match ERROR message when resource not found in database. Instead
+    of a generic "unknown key" give more detailed information. This is
+    consistent with AnnotationHub/Hub-classes. If resource hasn't been
+    completely removed from database, gives when the resource was removed. If
+    the resource is available but after the snapshot date being utilized,
+    specialized message.
+
 CHANGES IN VERSION 1.11.0
 ------------------------
 

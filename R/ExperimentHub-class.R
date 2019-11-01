@@ -95,8 +95,26 @@ setMethod("[[", c("ExperimentHub", "character", "missing"),
     if (length(i) != 1L)
         stop("'i' must be length 1")
     idx <- match(i, names(AnnotationHub:::.db_uid(x)))
-    if (is.na(idx))
-        stop("unknown key ", sQuote(i))
+    if (is.na(idx)){
+        status = recordStatus(x, i)
+        if (isLocalHub(x)){
+            if(status$status == "Public")
+                stop("File not previously downloaded.",
+                     "\n  Run with 'localHub=FALSE'",
+                     call.=FALSE)
+        }
+        if (status$status == "Public" && (as.Date(status$dateadded) >=
+                as.Date(snapshotDate(x))))
+            stop(status$record, " added after current Hub snapshot date.\n",
+                 "  added: ", as.character(status$dateadded), "\n",
+                 "  snapshote date: ",  as.character(snapshotDate(x)),
+                 call.=FALSE)
+
+        msg <- paste0(status$status, "\n")
+        if(!is.null(status$dateremoved))
+            msg <- paste0(msg, "   Resource removed on: ", status$dateremoved)
+        stop(msg, call.=FALSE)
+    }
 
     pkg <- AnnotationHub:::.count_resources(x[i], "preparerclass")
     .tryload(pkg)
