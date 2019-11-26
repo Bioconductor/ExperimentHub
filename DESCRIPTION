@@ -1,7 +1,7 @@
 Package: ExperimentHub
 Type: Package
 Title: Client to access ExperimentHub resources
-Version: 1.13.2
+Version: 1.13.3
 Author: Bioconductor Package Maintainer <maintainer@bioconductor.org>
 Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
 Description: This package provides a client for the Bioconductor
@@ -17,3 +17,4 @@ Imports: utils, S4Vectors, BiocManager, curl, rappdirs
 Suggests: knitr, BiocStyle
 Enhances: ExperimentHubData
 VignetteBuilder: knitr
+RoxygenNote: 7.0.0
