@@ -65,7 +65,7 @@
       \code{ExperimentHub(..., hub=getExperimentHubOption("URL"),
 	cache=getExperimentHubOption("CACHE"),
 	proxy=getExperimentHubOption("PROXY"),
-	localHub=getExperimentHubOption("LOCALHUB"))}:
+	localHub=getExperimentHubOption("LOCAL"))}:
 
       Create an \code{ExperimentHub} instance, possibly updating the
       current database of records.
