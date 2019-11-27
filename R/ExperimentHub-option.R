@@ -5,8 +5,8 @@ getExperimentHubOption <- function(arg) {
     arg <- toupper(arg)
     key <- c("URL", "CACHE", "PROXY", "MAX_DOWNLOADS", "LOCAL", "ASK")
     if (!arg %in% key)
-        stop(paste0("'arg' must be one of 'URL', 'CACHE', 'PROXY', ",
-             "'LOCAL', 'ASK', or 'MAXDOWNLOADS'"))
+        stop("'arg' must be one of 'URL', 'CACHE', 'PROXY', ",
+             "'LOCAL', 'ASK' or 'MAXDOWNLOADS'")
     .EH_hub_options[[arg]]
 }
 
