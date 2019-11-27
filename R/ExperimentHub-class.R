@@ -98,10 +98,12 @@ setMethod("[[", c("ExperimentHub", "character", "missing"),
     if (is.na(idx)){
         status = recordStatus(x, i)
         if (isLocalHub(x)){
-            if(status$status == "Public")
-                stop("File not previously downloaded.",
-                     "\n  Run with 'localHub=FALSE'",
-                     call.=FALSE)
+            if (status$status == "Public")
+                stop(
+                    "File not previously downloaded.\n",
+                    "  Run with 'localHub=FALSE'",
+                    call.=FALSE
+                )
         }
         if (status$status == "Public" && (as.Date(status$dateadded) >=
                 as.Date(snapshotDate(x))))
@@ -110,9 +112,9 @@ setMethod("[[", c("ExperimentHub", "character", "missing"),
                  "  snapshote date: ",  as.character(snapshotDate(x)),
                  call.=FALSE)
 
-        msg <- paste0(status$status, "\n")
-        if(!is.null(status$dateremoved))
-            msg <- paste0(msg, "   Resource removed on: ", status$dateremoved)
+        msg <- status$status
+        if (!is.null(status$dateremoved))
+            msg <- paste0(msg, "\n  Resource removed on: ", status$dateremoved)
         stop(msg, call.=FALSE)
     }
 
@@ -120,17 +122,4 @@ setMethod("[[", c("ExperimentHub", "character", "missing"),
     .tryload(pkg)
     callNextMethod(x, i, j, ..., force=force, verbose=verbose)
     ## or AnnotationHub:::.Hub_get1(x[idx])
-})
-
-### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### Show
-###
-
-setMethod("show", "ExperimentHub", function(object)
-{
-    len <- length(object)
-    cat(sprintf("%s with %d record%s\n", class(object), len,
-                ifelse(len == 1L, "", "s")))
-    cat("# snapshotDate():", snapshotDate(object), "\n")
-    callNextMethod(object)
 })
