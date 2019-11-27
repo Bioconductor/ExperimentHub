@@ -53,6 +53,13 @@ setExperimentHubOption(arg, value)
     \item{\dQuote{LOCAL}:}{logical(1). Should the
       ExperimentHub create a hub consisting only of previously
       downloaded resources. Default: FALSE.}
+
+    \item{\dQuote{ASK}:}{logical(1). TRUE/FALSE should the ExperimentHub
+      ask if the hub location should be created. If FALSE, the default
+      location will be used and created if it doesn't exist without
+      asking. If TRUE will ask the user and if in a non interactive
+      session utilize a temporary directoy for the caching.
+      Default: TRUE.}
   }
 
   Default values may also be determined by system and global R

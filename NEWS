@@ -1,6 +1,13 @@
 CHANGES IN VERSION 1.13.0
 ------------------------
 
+NEW FEATURES
+
+    o (1.13.4) Adds option ask to constructor. Default: True. Ask will ask user
+    to create default ExperimentHub location and if in an non interactive
+    session utilize a temporary directory. If False, the default directory is
+    created and utilized without prompting.
+
 BUG FIXES
 
     o (1.13.2) Aaron's corrections to setExperimentHubOptions.

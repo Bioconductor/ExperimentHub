@@ -13,7 +13,8 @@ ExperimentHub <-
     function(..., hub=getExperimentHubOption("URL"),
              cache=getExperimentHubOption("CACHE"),
              proxy=getExperimentHubOption("PROXY"),
-             localHub=getExperimentHubOption("LOCAL"))
+             localHub=getExperimentHubOption("LOCAL"),
+             ask=getExperimentHubOption("ASK"))
 {
     if (is.null(proxy)){
         connect <- curl::has_internet()
@@ -27,7 +28,7 @@ ExperimentHub <-
         message("No internet connection using 'localHub=TRUE'")
         localHub <- !connect
     }
-    .Hub("ExperimentHub", hub, cache, proxy, localHub, ...)
+    .Hub("ExperimentHub", hub, cache, proxy, localHub, ask, ...)
 }
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
