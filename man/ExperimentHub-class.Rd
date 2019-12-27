@@ -239,7 +239,13 @@
       \code{cache(x)} and \code{cache(x) <- NULL}: Adds (downloads) all
       resources in \code{x}, or removes all local resources
       corresponding to the records in \code{x} from the cache. In this case,
-      \code{x} would typically be a small subset of ExperimentHub resources.
+      \code{x} would typically be a small subset of ExperimentHub
+      resources. If \code{x} is a subset hub from a larger hub, and
+      \code{localHub=TRUE} was used to construct the hubs, 
+      the original object will need to be reconstructed to reflect the
+      removed resources. See also \code{removeResources} for a nicer interface
+      for removing cached resources, or \code{removeCache} for deleting the hub
+      cache entirely.
     }
     \item{}{
       \code{hubUrl(x)}:
@@ -257,6 +263,14 @@
       redownload specifically for ExperimentHub the base call should be
       \code{refreshHub(hubClass="ExperimentHub")}
     }   
+    \item{}{
+      \code{removeResources(hub, ids)}:
+      Removes listed ids from the local cache. ids are "EH" ids. Returns
+      an updated hub object. To work with updated hub object suggested
+      syntax is to reassign (ie. \code{hub = removeResources(hub,
+      "EH1")}). If ids are missing will remove all previously downloaded
+      local resources.
+    }
     \item{}{
       \code{removeCache(x)}:
       Removes local ExperimentHub database and all related resources. After
