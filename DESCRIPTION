@@ -1,9 +1,17 @@
 Package: ExperimentHub
 Type: Package
 Title: Client to access ExperimentHub resources
-Version: 1.13.5
-Author: Bioconductor Package Maintainer <maintainer@bioconductor.org>
-Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
+Version: 1.13.6
+Authors@R:
+    c(person("Bioconductor Package", "Maintainer", email="maintainer@bioconductor.org",
+             role="cre"),
+      person("Martin", "Morgan", role="aut"),
+      person("Marc", "Carlson", role="ctb"),
+      person("Dan", "Tenenbaum", role="ctb"),
+      person("Sonali", "Arora", role="ctb"),
+      person("Valerie", "Oberchain", role="ctb"),
+      person("Kayla", "Morrell", role="ctb"),
+      person("Lori", "Shepherd", role="aut"))
 Description: This package provides a client for the Bioconductor
         ExperimentHub web resource. ExperimentHub provides a central location
         where curated data from experiments, publications or training courses
