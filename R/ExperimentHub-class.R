@@ -20,12 +20,12 @@ ExperimentHub <-
         connect <- !is.null(curl::nslookup("experimenthub.bioconductor.org", error=FALSE))
     } else {
         connect <- TRUE
-        message(sprintf("assuming valid proxy connection (%s).", proxy),
+        message(sprintf("Assuming valid proxy connection through '%s'.", proxy),
                 "\nIf you experience connection issues, consider ",
-                "using 'localHub=TRUE'")
+                "using 'localHub=TRUE'.")
     }
     if (!connect && !localHub){
-        message("cannot connect to ExperimentHub servers, using 'localHub=TRUE' instead")
+        message("Cannot connect to ExperimentHub server, using 'localHub=TRUE' instead.")
         localHub <- !connect
     }
     .Hub("ExperimentHub", hub, cache, proxy, localHub, ask, ...)
