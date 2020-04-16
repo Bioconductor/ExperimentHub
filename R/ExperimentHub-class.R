@@ -17,15 +17,15 @@ ExperimentHub <-
              ask=getExperimentHubOption("ASK"))
 {
     if (is.null(proxy)){
-        connect <- curl::has_internet()
+        connect <- !is.null(curl::nslookup("experimenthub.bioconductor.org", error=FALSE))
     } else {
         connect <- TRUE
-        message("Cannot determine internet connection.",
-                "\n If you experience connection issues consider ",
+        message(sprintf("assuming valid proxy connection (%s).", proxy),
+                "\nIf you experience connection issues, consider ",
                 "using 'localHub=TRUE'")
     }
     if (!connect && !localHub){
-        message("No internet connection using 'localHub=TRUE'")
+        message("cannot connect to ExperimentHub servers, using 'localHub=TRUE' instead")
         localHub <- !connect
     }
     .Hub("ExperimentHub", hub, cache, proxy, localHub, ask, ...)
