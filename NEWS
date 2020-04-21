@@ -13,6 +13,9 @@ NEW FEATURES
 
 BUG FIXES
 
+    o (1.13.8) Updated has_internet to nslookup. Certain locations block
+    has_internet from running (block google dns). switched so can query the hub
+    directly
     o (1.13.7) Fixed messages to be more informative
     o (1.13.2) Aaron's corrections to setExperimentHubOptions.
 
