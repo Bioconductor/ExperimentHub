@@ -1,7 +1,7 @@
 Package: ExperimentHub
 Type: Package
 Title: Client to access ExperimentHub resources
-Version: 1.15.2
+Version: 1.15.3
 Authors@R:
     c(person("Bioconductor Package", "Maintainer", email="maintainer@bioconductor.org",
              role="cre"),
@@ -24,5 +24,6 @@ Depends: methods, BiocGenerics (>= 0.15.10), AnnotationHub (>= 2.19.3), BiocFile
 Imports: utils, S4Vectors, BiocManager, curl, rappdirs
 Suggests: knitr, BiocStyle
 Enhances: ExperimentHubData
+BugReports: https://github.com/Bioconductor/ExperimentHub/issues
 VignetteBuilder: knitr
 RoxygenNote: 7.0.0
