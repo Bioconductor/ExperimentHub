@@ -17,7 +17,12 @@ ExperimentHub <-
              ask=getExperimentHubOption("ASK"))
 {
     if (is.null(proxy)){
-        connect <- !is.null(curl::nslookup("experimenthub.bioconductor.org", error=FALSE))
+        connect <- suppressWarnings(tryCatch({
+            readBin(hub, n=1L, what="raw")
+            TRUE
+        }, error = function(...){
+            FALSE
+        }))
     } else {
         connect <- TRUE
         message("Assuming valid proxy connection through '",
