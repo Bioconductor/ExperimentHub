@@ -4,10 +4,19 @@
 
 ## export resources as accessor functions
 
+.get_ExperimentHub <- function() {
+     eh <- try(.get_eh(), silent=TRUE)
+     if (inherits(eh, "try-error")) {
+       eh <- ExperimentHub::ExperimentHub()
+       .set_eh(eh)
+     }
+     eh
+}
+
 .hubAccessorFactory <- function(ehid) {
      force(ehid)
      function(metadata=FALSE) {
-         eh <- ExperimentHub()
+         eh <- .get_ExperimentHub()
          if (metadata) {
              eh[ehid]
          } else
