@@ -3,9 +3,14 @@
 ### -------------------------------------------------------------------------
 
 ## export resources as accessor functions
+.HUB <- new.env(parent = emptyenv())
+
+.GET_HUB <- function() get("eh", envir = .HUB)
+
+.SET_HUB <- function(value) assign("eh", value, envir=.HUB)
 
 .get_ExperimentHub <- function() {
-     eh <- try(.GET_HB(), silent=TRUE)
+     eh <- try(.GET_HUB(), silent=TRUE)
      if (inherits(eh, "try-error")) {
        eh <- ExperimentHub::ExperimentHub()
        .SET_HUB(eh)
@@ -26,7 +31,7 @@
 
 createHubAccessors <- function(pkgname, titles) {
     ## map titles to ExperimentHub identifiers
-    eh <- query(ExperimentHub(), pkgname)
+    eh <- query(.get_ExperimentHub(), pkgname)
 
     ehids <- vapply(titles, function(tle, exactMatch) {
         ehid <- names(subset(eh, title == tle))
@@ -41,9 +46,6 @@ createHubAccessors <- function(pkgname, titles) {
 
     ## create and export accessor functions in package namespace
     ns <- asNamespace(pkgname)
-    assign(".HUB", new.env(parent=emptyenv()), envir=ns)
-    assign(".GET_HUB", function() get("eh", envir=.HUB), envir=ns)
-    assign(".SET_HUB", function(value) assign("eh", value, envir=.HUB), envir=ns)
     for (i in seq_along(titles)) {
         assign(titles[[i]], .hubAccessorFactory(ehids[[i]]), envir=ns)
         namespaceExport(ns, titles[[i]])
