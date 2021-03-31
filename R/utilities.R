@@ -5,10 +5,10 @@
 ## export resources as accessor functions
 
 .get_ExperimentHub <- function() {
-     eh <- try(.get_eh(), silent=TRUE)
+     eh <- try(.GET_HB(), silent=TRUE)
      if (inherits(eh, "try-error")) {
        eh <- ExperimentHub::ExperimentHub()
-       .set_eh(eh)
+       .SET_HUB(eh)
      }
      eh
 }
@@ -41,9 +41,9 @@ createHubAccessors <- function(pkgname, titles) {
 
     ## create and export accessor functions in package namespace
     ns <- asNamespace(pkgname)
-    assign(.HUB, new.env(parent=emptyenv()), envir=ns)
-    assign(.GET_HUB, function() get("eh", envir=.HUB), envir=ns)
-    assign(.SET_HUB, function(value) assign("eh", value, envir=.HUB), envir=ns)
+    assign(".HUB", new.env(parent=emptyenv()), envir=ns)
+    assign(".GET_HUB", function() get("eh", envir=.HUB), envir=ns)
+    assign(".SET_HUB", function(value) assign("eh", value, envir=.HUB), envir=ns)
     for (i in seq_along(titles)) {
         assign(titles[[i]], .hubAccessorFactory(ehids[[i]]), envir=ns)
         namespaceExport(ns, titles[[i]])
