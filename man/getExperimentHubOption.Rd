@@ -26,7 +26,7 @@ setExperimentHubOption(arg, value)
 
   \describe{
 
-    \item{\dQuote{URL}:}{character(1). The base URL of the Experiment Hub. 
+    \item{\dQuote{URL}:}{character(1). The base URL of the ExperimentHub.
       Default: \url{https://experimenthub.bioconductor.org}}
 
     \item{\dQuote{CACHE}:}{character(1). The location of the hub
@@ -44,15 +44,22 @@ setExperimentHubOption(arg, value)
       firewall. Setting this option sends all ExperimentHub requests through
       the proxy. Default: NULL.
 
-      In \code{setHubOption("PROXY", value)}, \code{value} can be one of NULL,
+      In \code{setExperimentHubOption("PROXY", value)}, \code{value} can be one of NULL,
       a \code{request} object returned by \code{httr::use_proxy()}, or a
       well-formed URL as character(1). The URL can be completely
       specified by \code{http://username:password@proxy.dom.com:8080};
       \code{username:password} and port (e.g. \code{:8080}) are optional.}
 
-    \item{\dQuote{LOCAL}:}{logical(1). TRUE/FALSE should the
+    \item{\dQuote{LOCAL}:}{logical(1). Should the
       ExperimentHub create a hub consisting only of previously
-      downloaded resourcesd. Default: FALSE.}
+      downloaded resources. Default: FALSE.}
+
+    \item{\dQuote{ASK}:}{logical(1). TRUE/FALSE should the ExperimentHub
+      ask if the hub location should be created. If FALSE, the default
+      location will be used and created if it doesn't exist without
+      asking. If TRUE will ask the user and if in a non interactive
+      session utilize a temporary directoy for the caching.
+      Default: TRUE.}
   }
 
   Default values may also be determined by system and global R

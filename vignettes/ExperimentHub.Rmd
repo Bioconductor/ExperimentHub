@@ -170,7 +170,14 @@ Set the dates like this:
 snapshotDate(ah) <- pd[1]
 ```
 
-# ExperimentHub
+
+
+# Creating an ExperimentHub Package or Converting to an ExperimentHub Package
+
+Please see AnnotationHub Vignette "CreateAHubPackage".
+```
+vignette("CreateAHubPackage", package="AnnotationHub")
+```
 
 
 # Session info

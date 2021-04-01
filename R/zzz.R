@@ -32,5 +32,11 @@
         opt <- as.logical(opt)
         setExperimentHubOption("LOCAL", opt)
     }
+    if (is.null(getExperimentHubOption("ASK"))) {
+        opt <- getOption("EXPERIMENT_HUB_ASK", TRUE)
+        opt <- Sys.getenv("EXPERIMENT_HUB_ASK", opt)
+        opt <- as.logical(opt)
+        setExperimentHubOption("ASK", opt)
+    }
 
 }

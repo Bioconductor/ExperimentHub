@@ -1,5 +1,42 @@
+CHANGES IN VERSION 1.17.0
+------------------------
+
+    o (1.17.1) Removed vignette for creating annotation hub package. Reference
+    and refer to single vignette in AnnotationHub
+
+CHANGES IN VERSION 1.15.0
+------------------------
+
+BUG FIXES
+
+    o (1.15.2) Proxy message formatting
+
+USER-VISIBLE CHANGES
+
+    o (1.15.4) less stringent internet check
+    o (1.15.3) Add link for github issue reporting
+    o (1.15.1) Add hubs@bioconductor.org email for help
+
 CHANGES IN VERSION 1.13.0
 ------------------------
+
+NEW FEATURES
+
+    o (1.13.5) New function removeResources for removing locally downloaded
+    cached resources. Nicer interface than using cache. Improved documentation
+    on use of setting a cache to NULL to also remove resources.
+    o (1.13.4) Adds option ask to constructor. Default: True. Ask will ask user
+    to create default ExperimentHub location and if in an non interactive
+    session utilize a temporary directory. If False, the default directory is
+    created and utilized without prompting.
+
+BUG FIXES
+
+    o (1.13.8) Updated has_internet to nslookup. Certain locations block
+    has_internet from running (block google dns). switched so can query the hub
+    directly
+    o (1.13.7) Fixed messages to be more informative
+    o (1.13.2) Aaron's corrections to setExperimentHubOptions.
 
 USER-VISIBLE CHANGES
 
@@ -18,7 +55,7 @@ NEW FEATURES
     o (1.11.2) system environment variable to control localHub option for
     creating hub based only on previously downloaded resources
     o (1.11.5) With change in AnnotationHub. All force redownload of Hub sqlite
-    file with refreshHub 
+    file with refreshHub
 
 BUG FIXES
 
