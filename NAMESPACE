@@ -5,7 +5,8 @@ import(AnnotationHub)
 importFrom(BiocManager, install)
 importFrom(utils, installed.packages)
 import(BiocFileCache)
-import(rappdirs)
+importFrom(tools, R_user_dir)
+importFrom(rappdirs, user_cache_dir)
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Export S4 classes

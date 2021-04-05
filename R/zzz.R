@@ -15,7 +15,7 @@
         setExperimentHubOption("URL", opt)
     }
     if (is.null(getExperimentHubOption("CACHE"))) {
-        path <- user_cache_dir(appname=.CACHE_ROOT)
+        path <- tools::R_user_dir(.CACHE_ROOT, which="cache")
         opt <- getOption("EXPERIMENT_HUB_CACHE", path)
         opt <- Sys.getenv("EXPERIMENT_HUB_CACHE", opt)
         setExperimentHubOption("CACHE", opt)
@@ -33,7 +33,7 @@
         setExperimentHubOption("LOCAL", opt)
     }
     if (is.null(getExperimentHubOption("ASK"))) {
-        opt <- getOption("EXPERIMENT_HUB_ASK", TRUE)
+        opt <- getOption("EXPERIMENT_HUB_ASK", interactive())
         opt <- Sys.getenv("EXPERIMENT_HUB_ASK", opt)
         opt <- as.logical(opt)
         setExperimentHubOption("ASK", opt)

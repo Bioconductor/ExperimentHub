@@ -20,7 +20,7 @@ large files of data.
 # ExperimentHub objects
 
 The `r Biocpkg("ExperimentHub")` package provides a client interface
-to resources stored at the ExperimentHub web service. It has similar 
+to resources stored at the ExperimentHub web service. It has similar
 functionality to `r Biocpkg("AnnotationHub")` package.
 
 ```{r library, message=FALSE}
@@ -38,10 +38,10 @@ Now at this point you have already done everything you need in order
 to start retrieving experiment data.  For most operations, using the
 `ExperimentHub` object should feel a lot like working with a familiar
 `list` or `data.frame` and has all of the functionality of an `Hub`
-object like  `r Biocpkg("AnnotationHub")` package's `AnnotationHub` 
-object. 
+object like  `r Biocpkg("AnnotationHub")` package's `AnnotationHub`
+object.
 
-Lets take a minute to look at the show method for the hub object eh 
+Lets take a minute to look at the show method for the hub object eh
 
 ```{r show}
 eh
@@ -53,7 +53,7 @@ You can see that it gives you an idea about the different types of data that are
 head(unique(eh$dataprovider))
 ```
 
-In the same way, you can also see data from different species inside the hub by looking at the contents of species like this: 
+In the same way, you can also see data from different species inside the hub by looking at the contents of species like this:
 
 ```{r species}
 head(unique(eh$species))
@@ -74,7 +74,7 @@ Now lets try getting the data files associated with the `r
 Biocpkg("alpineData")` package using the query method. The query method lets you
 search rows for specific strings, returning an `ExperimentHub` instance with
 just the rows matching the query. The `preparerclass` column of metadata
-monitors which package is associated with the ExperimentHub data. 
+monitors which package is associated with the ExperimentHub data.
 
 One can get chain files for Drosophila melanogaster from UCSC with:
 
@@ -83,9 +83,9 @@ apData <- query(eh, "alpineData")
 apData
 ```
 Query has worked and you can now see that the only data present is provided by
-the "alpineData". 
- 
-The metadata underlying this hub object can be retrieved by you 
+the "alpineData".
+
+The metadata underlying this hub object can be retrieved by you
 
 ```{r show2}
 apData$preparerclass
@@ -98,7 +98,7 @@ There are hundreds of records present in the hub.
 ```{r length}
 length(eh)
 ```
-Lets look at another example, where we pull down only data 
+Lets look at another example, where we pull down only data
 from the hub for species "mus musculus".
 
 ```{r subset}
@@ -136,8 +136,8 @@ it should download much more quickly.
 When you create the `ExperimentHub` object, it will set up the object
 for you with some default settings.  See `?ExperimentHub` for ways to
 customize the hub source, the local cache, and other instance-specific
-options, and `?getExperimentHubOption` to get or set package-global 
-options for use across sessions. 
+options, and `?getExperimentHubOption` to get or set package-global
+options for use across sessions.
 
 If you look at the object you will see some helpful information about
 it such as where the data is cached and where online the hub server is
@@ -179,6 +179,95 @@ Please see AnnotationHub Vignette "CreateAHubPackage".
 vignette("CreateAHubPackage", package="AnnotationHub")
 ```
 
+
+# Default Caching Location Update
+
+
+As of ExperimentHub version > 1.17.2, the default caching location has
+changed. The default cache is now controlled by the function `tools::R_user_dir`
+instead of `rappdirs::user_cache_dir`.  Users who have utilized the default
+ExperimentHub location, to continue using the created cache, must move the cache and its
+files to the new default location,  create a system environment variable to
+point to the old location, or delete and start a new cache.
+
+## Option 1: Move cache and files to new location
+
+The following steps can be used to move the files to the new location:
+
+1. Determine the old location by running the following in R
+   `rappdirs::user_cache_dir(appname="ExperimentHub")`
+
+2. Determine the new location by running the following in R
+   `tools::R_user_dir("ExperimentHub", which="cache")`
+
+3. Move the files to the new location. You can do this manually or do the
+following steps in R. Remember if you have a lot of cached files, this may take
+awhile.
+
+```{r, eval=FALSE}
+	olddir <- path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
+	newdir <- tools::R_user_dir("ExperimentHub", which="cache")
+	dir.create(path=newdir, recursive=TRUE)
+	files <- list.files(olddir, full.names =TRUE)
+	moveres <- vapply(files,
+		FUN=function(fl){
+		  filename = basename(fl)
+		  newname = file.path(newdir, filename)
+		  file.rename(fl, newname)
+		},
+		FUN.VALUE = logical(1))
+	if(all(moveres)) unlink(olddir, recursive=TRUE)
+
+```
+
+## Option 2:  Create a system environment variable
+
+A user may set the system environment variable `EXPERIMENT_HUB_CACHE` to control
+the default location of the cache. Setting system environment variables can vary
+depending on the operating system; we suggest using google to find appropriate
+instructures per your operating system.
+
+You will want to set the variable to the results of running the following in R:
+
+```{r, eval=FALSE}
+
+       path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
+```
+
+**NOTE:** R has `Sys.setenv` however that will only set the variable for that R
+  session. It would not be available or recognized in future R sessions. It is
+  important to set the variable as a global user-wide or system-wide
+  environment variable so it persists in all future logins to your system.
+
+## Option 3: Delete the old cache
+
+Lastly, if a user does not care about the already existing default cache, the
+old location may be deleted to move forward with the new default location. This
+option should be used with caution. Once deleted, old cached resources will no
+longer be available and have to be re-downloaded.
+
+One can do this manually by navigating to the location indicated in the ERROR
+message as `Problematic cache:` and deleting the folder and all its content.
+
+
+The following can be done to delete through R code:
+
+**CAUTION** This will remove the old cache and all downloaded resources. All
+  resources will have to be re-downloaded after executing this code.
+
+```{r, eval=FALSE}
+library(ExperimentHub)
+oldcache = path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
+setExperimentHubOption("CACHE", oldcache)
+eh = ExperimentHub(localHub=TRUE)
+## removes old location and all resources
+removeCache(eh, ask=FALSE)
+
+## create the new default caching location
+newcache = tools::R_user_dir("ExperimentHub", which="cache")
+setExperimentHubOption("CACHE", newcache)
+eh = ExpeirmentHub()
+```
 
 # Session info
 
