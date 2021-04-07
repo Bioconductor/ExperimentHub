@@ -19,10 +19,10 @@ ExperimentHub <-
     if ((cache == R_user_dir("ExperimentHub", which="cache")) && (Sys.getenv("EXPERIMENT_HUB_CACHE")=="")){
         olddefault = rappdirs::user_cache_dir(appname="ExperimentHub")
         if (dir.exists(olddefault) && (length(list.files(olddefault)) != 0)){
-            stop("As of ExperimentHub (>1.17.2), default caching location has changed.\n",
+            warning("DEPRECATION: As of ExperimentHub (>1.17.2), default caching location has changed.\n",
                  "  Problematic cache: ", path.expand(olddefault), "\n",
-                 "  To continue with default caching location, \n",
                  "  See ExperimentHub vignette section on 'Default Caching Location Update'\n")
+            cache = olddefault
         }
     }
 
