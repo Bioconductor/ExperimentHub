@@ -21,7 +21,7 @@ ExperimentHub <-
         if (dir.exists(olddefault) && (length(list.files(olddefault)) != 0)){
             warning("DEPRECATION: As of ExperimentHub (>1.17.2), default caching location has changed.\n",
                  "  Problematic cache: ", path.expand(olddefault), "\n",
-                 "  See ExperimentHub vignette section on 'Default Caching Location Update'\n")
+                 "  See https://bioconductor.org/packages/devel/bioc/vignettes/ExperimentHub/inst/doc/ExperimentHub.html#default-caching-location-update\n")
             cache = olddefault
         }
     }
