@@ -205,18 +205,24 @@ following steps in R. Remember if you have a lot of cached files, this may take
 awhile.
 
 ```{r, eval=FALSE}
-	olddir <- path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
-	newdir <- tools::R_user_dir("ExperimentHub", which="cache")
-	dir.create(path=newdir, recursive=TRUE)
-	files <- list.files(olddir, full.names =TRUE)
-	moveres <- vapply(files,
+	moveFiles<-function(package){
+	    olddir <- path.expand(rappdirs::user_cache_dir(appname=package))
+	    newdir <- tools::R_user_dir(package, which="cache")
+	    dir.create(path=newdir, recursive=TRUE)
+	    files <- list.files(olddir, full.names =TRUE)
+	    moveres <- vapply(files,
 		FUN=function(fl){
 		  filename = basename(fl)
 		  newname = file.path(newdir, filename)
 		  file.rename(fl, newname)
 		},
 		FUN.VALUE = logical(1))
-	if(all(moveres)) unlink(olddir, recursive=TRUE)
+	    if(all(moveres)) unlink(olddir, recursive=TRUE)
+	}
+
+
+	package="ExperimentHub"
+	moveFiles(package)
 
 ```
 
@@ -256,17 +262,17 @@ The following can be done to delete through R code:
   resources will have to be re-downloaded after executing this code.
 
 ```{r, eval=FALSE}
-library(ExperimentHub)
-oldcache = path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
-setExperimentHubOption("CACHE", oldcache)
-eh = ExperimentHub(localHub=TRUE)
-## removes old location and all resources
-removeCache(eh, ask=FALSE)
+    library(ExperimentHub)
+    oldcache = path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
+    setExperimentHubOption("CACHE", oldcache)
+    eh = ExperimentHub(localHub=TRUE)
+    ## removes old location and all resources
+    removeCache(eh, ask=FALSE)
 
-## create the new default caching location
-newcache = tools::R_user_dir("ExperimentHub", which="cache")
-setExperimentHubOption("CACHE", newcache)
-eh = ExpeirmentHub()
+    ## create the new default caching location
+    newcache = tools::R_user_dir("ExperimentHub", which="cache")
+    setExperimentHubOption("CACHE", newcache)
+    eh = ExpeirmentHub()
 ```
 
 # Session info
