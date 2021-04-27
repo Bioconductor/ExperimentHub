@@ -28,9 +28,9 @@ library(ExperimentHub)
 ```
 
 The `r Biocpkg("ExperimentHub")` package is straightforward to use.
-Create an `ExperiemntHub` object
+Create an `ExperimentHub` object
 
-```{r ExperiemntHub}
+```{r ExperimentHub}
 eh = ExperimentHub()
 ```
 
@@ -59,7 +59,7 @@ In the same way, you can also see data from different species inside the hub by 
 head(unique(eh$species))
 ```
 
-And this will also work for any of the other types of metadata present.  You can learn which kinds of metadata are available by simply hitting the tab key after you type 'eh$'.  In this way you can explore for yourself what kinds of data are present in the hub right from the command line. This interface also allows you to access the hub programatically to extract data that matches a particular set of criteria.
+And this will also work for any of the other types of metadata present.  You can learn which kinds of metadata are available by simply hitting the tab key after you type 'eh$'.  In this way you can explore for yourself what kinds of data are present in the hub right from the command line. This interface also allows you to access the hub programmatically to extract data that matches a particular set of criteria.
 
 Another valuable types of metadata to pay attention to is the rdataclass.
 
@@ -67,7 +67,7 @@ Another valuable types of metadata to pay attention to is the rdataclass.
 head(unique(eh$rdataclass))
 ```
 
-The rdataclass allows you to see which kinds of R objects the hub will return to you.  This kind of information is valuable both as a means to filter results and also as a means to explore and learn about some of the kinds of experimenthub objects that are widely available for the project.  Right now this is a pretty short list, but over time it should grow as we support more of the different kinds of experimenthub objects via the hub.
+The rdataclass allows you to see which kinds of R objects the hub will return to you.  This kind of information is valuable both as a means to filter results and also as a means to explore and learn about some of the kinds of `ExperimentHub` objects that are widely available for the project.  Right now this is a pretty short list, but over time it should grow as we support more of the different kinds of `ExperimentHub` objects via the hub.
 
 
 Now lets try getting the data files associated with the `r
@@ -83,7 +83,7 @@ apData <- query(eh, "alpineData")
 apData
 ```
 Query has worked and you can now see that the only data present is provided by
-the "alpineData".
+the `r Biocpkg("alpineData")` package.
 
 The metadata underlying this hub object can be retrieved by you
 
@@ -98,7 +98,8 @@ There are hundreds of records present in the hub.
 ```{r length}
 length(eh)
 ```
-Lets look at another example, where we pull down only data
+
+Let's look at another example, where we pull down only data
 from the hub for species "mus musculus".
 
 ```{r subset}
@@ -116,19 +117,21 @@ d <- display(eh)
 
 # Using `ExperimentHub` to retrieve data
 
-Looking back at our alpineData file example, if we are interested in the first file, we can gets its metadata using
+Looking back at our alpineData file example, if we are interested in the first file, we can get its metadata using
 
 ```{r dm2}
 apData
 apData["EH166"]
 ```
+
 We can download the file using
 
 ```{r dm3}
 apData[["EH166"]]
 ```
+
 Each file is retrieved from the ExperimentHub server and the file is
-also cache locally, so that the next time you need to retrieve it,
+also cached locally, so that the next time you need to retrieve it,
 it should download much more quickly.
 
 # Configuring `ExperimentHub` objects
@@ -205,24 +208,24 @@ following steps in R. Remember if you have a lot of cached files, this may take
 awhile.
 
 ```{r, eval=FALSE}
-	moveFiles<-function(package){
-	    olddir <- path.expand(rappdirs::user_cache_dir(appname=package))
-	    newdir <- tools::R_user_dir(package, which="cache")
-	    dir.create(path=newdir, recursive=TRUE)
-	    files <- list.files(olddir, full.names =TRUE)
-	    moveres <- vapply(files,
-		FUN=function(fl){
-		  filename = basename(fl)
-		  newname = file.path(newdir, filename)
-		  file.rename(fl, newname)
-		},
-		FUN.VALUE = logical(1))
-	    if(all(moveres)) unlink(olddir, recursive=TRUE)
-	}
+moveFiles<-function(package){
+    olddir <- path.expand(rappdirs::user_cache_dir(appname=package))
+    newdir <- tools::R_user_dir(package, which="cache")
+    dir.create(path=newdir, recursive=TRUE)
+    files <- list.files(olddir, full.names =TRUE)
+    moveres <- vapply(files,
+        FUN=function(fl){
+            filename = basename(fl)
+            newname = file.path(newdir, filename)
+            file.rename(fl, newname)
+        },
+        FUN.VALUE = logical(1))
+    if(all(moveres)) unlink(olddir, recursive=TRUE)
+}
 
 
-	package="ExperimentHub"
-	moveFiles(package)
+package="ExperimentHub"
+moveFiles(package)
 
 ```
 
@@ -231,13 +234,12 @@ awhile.
 A user may set the system environment variable `EXPERIMENT_HUB_CACHE` to control
 the default location of the cache. Setting system environment variables can vary
 depending on the operating system; we suggest using google to find appropriate
-instructures per your operating system.
+instructions per your operating system.
 
 You will want to set the variable to the results of running the following in R:
 
 ```{r, eval=FALSE}
-
-       path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
+path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
 ```
 
 **NOTE:** R has `Sys.setenv` however that will only set the variable for that R
@@ -262,17 +264,17 @@ The following can be done to delete through R code:
   resources will have to be re-downloaded after executing this code.
 
 ```{r, eval=FALSE}
-    library(ExperimentHub)
-    oldcache = path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
-    setExperimentHubOption("CACHE", oldcache)
-    eh = ExperimentHub(localHub=TRUE)
-    ## removes old location and all resources
-    removeCache(eh, ask=FALSE)
+library(ExperimentHub)
+oldcache = path.expand(rappdirs::user_cache_dir(appname="ExperimentHub"))
+setExperimentHubOption("CACHE", oldcache)
+eh = ExperimentHub(localHub=TRUE)
+## removes old location and all resources
+removeCache(eh, ask=FALSE)
 
-    ## create the new default caching location
-    newcache = tools::R_user_dir("ExperimentHub", which="cache")
-    setExperimentHubOption("CACHE", newcache)
-    eh = ExpeirmentHub()
+## create the new default caching location
+newcache = tools::R_user_dir("ExperimentHub", which="cache")
+setExperimentHubOption("CACHE", newcache)
+eh = ExpeirmentHub()
 ```
 
 # Session info
