@@ -280,7 +280,7 @@ removeCache(eh, ask=FALSE)
 ## create the new default caching location
 newcache = tools::R_user_dir("ExperimentHub", which="cache")
 setExperimentHubOption("CACHE", newcache)
-eh = ExpeirmentHub()
+eh = ExperimentHub()
 ```
 
 # Session info
