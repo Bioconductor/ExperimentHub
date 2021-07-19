@@ -69,12 +69,17 @@ head(unique(eh$rdataclass))
 
 The rdataclass allows you to see which kinds of R objects the hub will return to you.  This kind of information is valuable both as a means to filter results and also as a means to explore and learn about some of the kinds of `ExperimentHub` objects that are widely available for the project.  Right now this is a pretty short list, but over time it should grow as we support more of the different kinds of `ExperimentHub` objects via the hub.
 
-
-Now lets try getting the data files associated with the `r
+Now let's try getting the data files associated with the `r
 Biocpkg("alpineData")` package using the query method. The query method lets you
 search rows for specific strings, returning an `ExperimentHub` instance with
-just the rows matching the query. The `preparerclass` column of metadata
-monitors which package is associated with the ExperimentHub data.
+just the rows matching the query. The `ExperimentHub::package()` function
+indicates the package responsible for original preparation and documentation of
+the ExperimentHub data, and is a useful resource to find out more about the
+data. This package may also depend, import or suggest other packages required
+for manipulating the data, and for this reason the package may need to be
+installed and loaded to use the resource. The package is also available in the
+(cryptically named) `preparerclass` column of the metadata of the ExperimentHub
+object.
 
 One can get chain files for Drosophila melanogaster from UCSC with:
 
