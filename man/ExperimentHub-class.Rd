@@ -69,6 +69,11 @@
 
       Create an \code{ExperimentHub} instance, possibly updating the
       current database of records.
+
+      See \code{getExperimentHubOption} for more details on constructor
+      arguments. The ellipse is current not utilized; arguments are
+      passed into the virtual Hub class constructor and it is needed as
+      a placeholder.
     }
   }
 }
