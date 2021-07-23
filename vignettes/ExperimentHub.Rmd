@@ -182,9 +182,9 @@ snapshotDate(ah) <- pd[1]
 
 # Creating an ExperimentHub Package or Converting to an ExperimentHub Package
 
-Please see AnnotationHub Vignette "CreateAHubPackage".
+Please see HubPub Vignette "CreateAHubPackage".
 ```
-vignette("CreateAHubPackage", package="AnnotationHub")
+vignette("CreateAHubPackage", package="HubPub")
 ```
 
 
