@@ -182,7 +182,7 @@ snapshotDate(ah) <- pd[1]
 
 # Creating an ExperimentHub Package or Converting to an ExperimentHub Package
 
-Please see HubPub Vignette "CreateAHubPackage".
+Please see `r Biocpkg("HubPub")` Vignette "CreateAHubPackage".
 ```
 vignette("CreateAHubPackage", package="HubPub")
 ```
