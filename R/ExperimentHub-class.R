@@ -47,6 +47,10 @@ ExperimentHub <-
         message("Cannot connect to ExperimentHub server, using 'localHub=TRUE' instead")
         localHub <- !connect
     }
+    if(localHub){
+        message("Using 'localHub=TRUE'\n",
+                "  If offline, please also see BiocManager vignette section on offline use")
+    }
     .Hub("ExperimentHub", hub, cache, proxy, localHub, ask, ...)
 }
 
