@@ -112,12 +112,18 @@ mm <- query(eh, "mus musculus")
 mm
 ```
 
-We can also look at the `ExperimentHub` object in a browser using the
-`display()` function. We can then filter the `ExperimentHub` object
-using the Global search field on the top right corner of the page or the in-column search fields.
+## Interactive retrieval of resources with BiocHubsShiny
 
-```{r display, eval=FALSE}
-d <- display(eh)
+We can perform the same query using the `BiocHubsShiny()` function from the
+eponymous package. In the 'species' field we can enter `musculus` as the
+search term.
+
+```{r BiocHubsShiny, eval=FALSE}
+BiocHubsShiny::BiocHubsShiny()
+```
+
+```{r,echo=FALSE,fig.cap="BiocHubsShiny query with species term 'musculus'",out.width="100%"}
+knitr::include_graphics("mm10_BiocHubsShiny.png")
 ```
 
 # Using `ExperimentHub` to retrieve data

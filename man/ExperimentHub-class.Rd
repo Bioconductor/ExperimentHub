@@ -41,7 +41,7 @@
   \code{refreshHub(hubClass="ExperimentHub")} can be utilized.
 
   Discover records in a hub using \code{mcols()}, \code{query()},
-  \code{subset()}, \code{[}, and \code{display()}.
+  \code{subset()}, and \code{[}.
 
   Retrieve individual records using \code{[[}. On first use of a
   resource, the corresponding files or other hub resources are
@@ -213,12 +213,6 @@
       return a logical vector of length \code{length(x)}.
       e.g., \code{subset(x, species == "Homo sapiens" &
 	genome=="GRCh38")}.
-    }
-    \item{}{
-      \code{display(object)}:
-      Open a web browser allowing for easy selection of hub records via
-      interactive tabular display. Return value is the subset of hub
-      records identified while navigating the display.
     }
     \item{}{
       \code{listResources(hub, package, filterBy=character())}:
