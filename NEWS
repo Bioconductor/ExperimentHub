@@ -3,7 +3,7 @@ CHANGES IN VERSION 2.3.0
 
 USER VISIBLE MODIFICATIONS
 
-    o (2.3.5) Update documentaion for shared hub across multiple users 
+    o (2.3.5) Update documentaion for shared hub across multiple users
 
 
 CHANGES IN VERSION 2.1.0
@@ -128,7 +128,9 @@ BUG FIXES
 
     o Fix typo in createHubAccessors with hard coded value
 
-VERSION 1.0.0
+CHANGES IN VERSION 1.0.0
 ------------------------
 
-Package added to release BioC 3.4
+NEW FEATURES
+
+    o Package added to release BioC 3.4

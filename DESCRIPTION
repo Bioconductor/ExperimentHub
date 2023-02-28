@@ -21,7 +21,7 @@ Description: This package provides a client for the Bioconductor
 License: Artistic-2.0
 biocViews: Infrastructure, DataImport, GUI, ThirdPartyClient
 Depends: methods, BiocGenerics (>= 0.15.10), AnnotationHub (>= 3.3.6), BiocFileCache (>= 1.5.1)
-Imports: utils, S4Vectors, BiocManager, curl, rappdirs
+Imports: utils, S4Vectors, BiocManager, rappdirs
 Suggests: knitr, BiocStyle, rmarkdown, HubPub
 Enhances: ExperimentHubData
 BugReports: https://github.com/Bioconductor/ExperimentHub/issues

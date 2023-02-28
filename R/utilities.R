@@ -34,7 +34,7 @@ createHubAccessors <- function(pkgname, titles) {
     eh <- query(.get_ExperimentHub(), pkgname)
 
     ehids <- vapply(titles, function(tle, exactMatch) {
-        ehid <- names(subset(eh, title == tle))
+        ehid <- names(subset(eh, eh$title == tle))
         if (length(ehid) == 0L) {
             stop(sQuote(tle), " not found in ExperimentHub")
         } else if (length(ehid) != 1L) {
