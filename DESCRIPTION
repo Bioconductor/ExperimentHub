@@ -1,7 +1,7 @@
 Package: ExperimentHub
 Type: Package
 Title: Client to access ExperimentHub resources
-Version: 2.7.1
+Version: 2.8.0
 Authors@R:
     c(person("Bioconductor Package", "Maintainer", email="maintainer@bioconductor.org",
              role="cre"),
