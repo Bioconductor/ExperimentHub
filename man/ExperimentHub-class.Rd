@@ -40,6 +40,10 @@
   funcionality. To force redownload of the hub,
   \code{refreshHub(hubClass="ExperimentHub")} can be utilized.
 
+  If you are operating behind a proxy please see the ExperimentHub
+  Vignette section on "Access behind a Proxy" for setting up
+  configuration to allow ExperimentHub to run properly.
+    
   Discover records in a hub using \code{mcols()}, \code{query()},
   \code{subset()}, and \code{[}.
 
