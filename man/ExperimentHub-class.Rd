@@ -65,7 +65,7 @@
 
 
   For common hub troubleshooting, please see the AnnotationHub vignette
-  entitled `vignette("TroubleshootingTheCache", package=AnnotationHub)`.
+  entitled `vignette("TroubleshootingTheHubs", package="AnnotationHub")`.
   
 }
 

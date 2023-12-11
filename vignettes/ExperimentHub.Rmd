@@ -195,9 +195,9 @@ vignette("CreateAHubPackage", package="HubPub")
 
 # Troubleshooting
 
-Please see `r Biocpkg("AnnotationHub")` vignette "TroubleshootingTheCache".
+Please see `r Biocpkg("AnnotationHub")` vignette "TroubleshootingTheHubs".
 ```
-vignette("TroubleshootingTheCache", package=AnnotationHub)
+vignette("TroubleshootingTheHubs", package="AnnotationHub")
 ```
 
 # Accessing Behind A Proxy
