@@ -1,3 +1,10 @@
+CHANGES IN VERSION 2.11.0
+-------------------------
+
+USER VISIBLE MODIFICATIONS
+
+    o (2.11.2) Update to only install package if interactive and approved by user
+
 CHANGES IN VERSION 2.9.0
 -------------------------
 
