@@ -93,15 +93,18 @@ setMethod("cache", "ExperimentHub",
     success <- paste0("see ?", pkg, " and browseVignettes('",
                       pkg, "') for documentation")
     nopkg <- paste0(pkg,
-                    " not installed.\n  Full functionality, documentation, and loading of data might not be possible without installing")
+                    " not installed.\n  Full functionality, documentation, ",
+                    "and loading of data might not be possible without installing")
     if (!pkg %in% rownames(installed.packages())){
-        message(nopkg)
-        if (interactive()){
-            txt <- paste0("Install ", pkg, " (yes/no): ")
-            response <- substr(tolower(readline(txt)), 1, 1)
-            doit <- switch(response, y = TRUE, n = FALSE, FALSE)
-            if (doit) BiocManager::install(pkg, suppressUpdates=TRUE)
-        } 
+        message(nopkg)        
+        if (interactive() &&
+            identical(AnnotationHub:::.ask(
+                                          paste0(txt="Install ", pkg),
+                                          values=c("yes", "no")),
+                      "yes")
+            ){
+            BiocManager::install(pkg, suppressUpdates=TRUE)
+        }        
     }
     if (pkg %in% rownames(installed.packages())) {
         suppressPackageStartupMessages({
