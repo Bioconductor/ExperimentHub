@@ -24,13 +24,11 @@ setExperimentHubOption <- function(arg, value)
         stopifnot(isSingleInteger(value))
         value
     }, PROXY={
-        if (is.null(value) | inherits(value, "request"))
+        if (is.null(value) || (isSingleString(value)))
             value
-        else if (isSingleString(value)) {
-            .httr_proxy(value)
-        } else {
-            txt <- "'value' must be an httr proxy request (use_proxy()),
-                    character(1), or NULL"
+        else {
+            txt <-
+                "'value' must be an single string value character(1) in embedded format (e.g. http://my_user:my_password@myproxy:8080), or NULL"
             stop(paste(strwrap(txt, exdent=2), collapse="\n"))
         }
     }, LOCAL={
