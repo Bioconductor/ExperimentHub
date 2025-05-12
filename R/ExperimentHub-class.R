@@ -73,13 +73,13 @@ setMethod("package", "ExperimentHub",
 ###
 
 setMethod("cache", "ExperimentHub",
-    function(x, ..., force=FALSE, verbose=FALSE) {
+    function(x, ..., force=FALSE, verbose=FALSE, config=list()) {
         callNextMethod(x,
                        cache.root="ExperimentHub",
                        cache.fun=setExperimentHubOption,
                        proxy=getExperimentHubOption("PROXY"),
                        max.downloads=getExperimentHubOption("MAX_DOWNLOADS"),
-                       force=force, verbose=verbose)
+                       force=force, verbose=verbose, config=config)
     }
 )
 

@@ -5,6 +5,10 @@ MAJOR UPDATES
 
     o Update downloading method from httr to httr2
 
+BUG FIXES
+
+    o (2.99.1) Add ability to pass config to download resources 
+
 CHANGES IN VERSION 2.13.0
 ------------------------
 
