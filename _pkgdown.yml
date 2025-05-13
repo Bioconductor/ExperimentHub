@@ -1,0 +1,7 @@
+title: ExperimentHub
+url: https://bioconductor.github.io/ExperimentHub
+
+template:
+  bootstrap: 5
+  params:
+    bootswatch: flatly
