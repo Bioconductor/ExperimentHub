@@ -102,7 +102,7 @@ setMethod("cache", "ExperimentHub",
                                           values=c("yes", "no")),
                       "yes")
             ){
-            BiocManager::install(pkg, suppressUpdates=TRUE)
+            BiocManager::install(pkg, update=FALSE)
         }        
     }
     if (pkg %in% rownames(installed.packages())) {
