@@ -114,18 +114,18 @@ setMethod("cache", "ExperimentHub",
 }
 
 setMethod("[[", c("ExperimentHub", "numeric", "missing"),
-    function(x, i, j, ..., force=FALSE, verbose=TRUE)
+    function(x, i, j, ..., force=FALSE, verbose=TRUE, config=list(), progress=TRUE)
 {
     if (length(x[i]) != 1L)
         stop("'i' must be length 1")
     pkg <- AnnotationHub:::.count_resources(x[i], "preparerclass")
     .tryload(pkg)
-    callNextMethod(x, i, j, ..., force=force, verbose=verbose)
+    callNextMethod(x, i, j, ..., force=force, verbose=verbose, config=config, progress=progress)
     ## or AnnotationHub:::.Hub_get1(x[i])
 })
 
 setMethod("[[", c("ExperimentHub", "character", "missing"),
-    function(x, i, j, ..., force=FALSE, verbose=TRUE)
+    function(x, i, j, ..., force=FALSE, verbose=TRUE, config=list(), progress=TRUE)
 {
     if (length(i) != 1L)
         stop("'i' must be length 1")
@@ -155,6 +155,6 @@ setMethod("[[", c("ExperimentHub", "character", "missing"),
 
     pkg <- AnnotationHub:::.count_resources(x[i], "preparerclass")
     .tryload(pkg)
-    callNextMethod(x, i, j, ..., force=force, verbose=verbose)
+    callNextMethod(x, i, j, ..., force=force, verbose=verbose, config=config, progress=progress)
     ## or AnnotationHub:::.Hub_get1(x[idx])
 })
