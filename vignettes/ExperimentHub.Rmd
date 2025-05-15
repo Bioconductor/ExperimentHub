@@ -123,7 +123,7 @@ BiocHubsShiny::BiocHubsShiny()
 ```
 
 ```{r,echo=FALSE,fig.cap="BiocHubsShiny query with species term 'musculus'",out.width="100%"}
-knitr::include_graphics("mm10_BiocHubsShiny.png")
+knitr::include_graphics("../man/figures/mm10_BiocHubsShiny.png")
 ```
 
 # Using `ExperimentHub` to retrieve data
