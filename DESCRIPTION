@@ -24,6 +24,7 @@ Depends: methods, BiocGenerics (>= 0.15.10), AnnotationHub (>= 3.3.6), BiocFileC
 Imports: utils, S4Vectors, BiocManager, rappdirs
 Suggests: knitr, BiocStyle, rmarkdown, HubPub, GenomicAlignments
 Enhances: ExperimentHubData
+URL: https://github.com/Bioconductor/ExperimentHub
 BugReports: https://github.com/Bioconductor/ExperimentHub/issues
 VignetteBuilder: knitr
 RoxygenNote: 7.0.0
