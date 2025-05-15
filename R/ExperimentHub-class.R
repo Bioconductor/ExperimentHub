@@ -73,13 +73,13 @@ setMethod("package", "ExperimentHub",
 ###
 
 setMethod("cache", "ExperimentHub",
-    function(x, ..., force=FALSE, verbose=FALSE) {
+    function(x, ..., force=FALSE, verbose=FALSE, config=list(), progress=TRUE) {
         callNextMethod(x,
                        cache.root="ExperimentHub",
                        cache.fun=setExperimentHubOption,
                        proxy=getExperimentHubOption("PROXY"),
                        max.downloads=getExperimentHubOption("MAX_DOWNLOADS"),
-                       force=force, verbose=verbose)
+                       force=force, verbose=verbose, config=config, progress=progress)
     }
 )
 
@@ -102,7 +102,7 @@ setMethod("cache", "ExperimentHub",
                                           values=c("yes", "no")),
                       "yes")
             ){
-            BiocManager::install(pkg, suppressUpdates=TRUE)
+            BiocManager::install(pkg, update=FALSE)
         }        
     }
     if (pkg %in% rownames(installed.packages())) {
@@ -114,18 +114,18 @@ setMethod("cache", "ExperimentHub",
 }
 
 setMethod("[[", c("ExperimentHub", "numeric", "missing"),
-    function(x, i, j, ..., force=FALSE, verbose=TRUE)
+    function(x, i, j, ..., force=FALSE, verbose=TRUE, config=list(), progress=TRUE)
 {
     if (length(x[i]) != 1L)
         stop("'i' must be length 1")
     pkg <- AnnotationHub:::.count_resources(x[i], "preparerclass")
     .tryload(pkg)
-    callNextMethod(x, i, j, ..., force=force, verbose=verbose)
+    callNextMethod(x, i, j, ..., force=force, verbose=verbose, config=config, progress=progress)
     ## or AnnotationHub:::.Hub_get1(x[i])
 })
 
 setMethod("[[", c("ExperimentHub", "character", "missing"),
-    function(x, i, j, ..., force=FALSE, verbose=TRUE)
+    function(x, i, j, ..., force=FALSE, verbose=TRUE, config=list(), progress=TRUE)
 {
     if (length(i) != 1L)
         stop("'i' must be length 1")
@@ -155,6 +155,6 @@ setMethod("[[", c("ExperimentHub", "character", "missing"),
 
     pkg <- AnnotationHub:::.count_resources(x[i], "preparerclass")
     .tryload(pkg)
-    callNextMethod(x, i, j, ..., force=force, verbose=verbose)
+    callNextMethod(x, i, j, ..., force=force, verbose=verbose, config=config, progress=progress)
     ## or AnnotationHub:::.Hub_get1(x[idx])
 })
