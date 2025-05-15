@@ -34,34 +34,36 @@ loadResources(hub, package, filterBy = character())
     A \code{character(1)} name of a package with resources hosted in the Hub.
   }
   \item{filterBy}{
-    A \code{character()} vector of search terms for additional filtering. 
-    Can be any terms found in the metadata (mcols()) of the resources. 
-    When not provided, there is no additional filtering and all resources 
+    A \code{character()} vector of search terms for additional filtering.
+    Can be any terms found in the metadata (mcols()) of the resources.
+    When not provided, there is no additional filtering and all resources
     associated with the given package are returned.
   }
 }
 
 \value{
-  \code{listResources} returns a character vector; 
+  \code{listResources} returns a character vector;
   \code{loadResources} returns a list of data objects.
 }
 
 \examples{
-\dontrun{
 ## Packages with resources hosted in ExperimentHub:
-require(ExperimentHub)
+library(ExperimentHub)
 eh <- ExperimentHub()
-unique(package(eh))
+head(
+    unique(package(eh))
+)
 
 ## All resources associated with the 'GSE62944' package:
 listResources(eh, "GSE62944")
 
 ## Resources associated with the 'curatedMetagenomicData' package
 ## filtered by 'plaque.abundance':
-listResources(eh, "curatedMetagenomicData", "plaque.abundance")
+listResources(eh, "curatedMetagenomicData", "plaque")
 
+\dontrun{
 ## 'loadResources()' returns a list of the data objects:
-loadResources(eh, "curatedMetagenomicData", "plaque.abundance")
+loadResources(eh, "curatedMetagenomicData", "plaque")
 }
 }
 \keyword{utilities}
