@@ -107,7 +107,7 @@ setMethod("cache", "ExperimentHub",
     }
     if (pkg %in% rownames(installed.packages())) {
         suppressPackageStartupMessages({
-            requireNamespace(pkg, quietly = TRUE)
+            require(pkg, quietly = TRUE, character.only = TRUE)
         })
         message(success)
     }
