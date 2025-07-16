@@ -95,7 +95,7 @@ setMethod("cache", "ExperimentHub",
                     " not installed.\n  Full functionality, documentation, ",
                     "and loading of data might not be possible without installing")
     if (!pkg %in% rownames(installed.packages())){
-        message(nopkg)        
+        message(nopkg)
         if (interactive() &&
             identical(AnnotationHub:::.ask(
                                           paste0(txt="Install ", pkg),
@@ -103,7 +103,7 @@ setMethod("cache", "ExperimentHub",
                       "yes")
             ){
             BiocManager::install(pkg, update=FALSE)
-        }        
+        }
     }
     if (pkg %in% rownames(installed.packages())) {
         suppressPackageStartupMessages({
