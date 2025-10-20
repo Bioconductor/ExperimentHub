@@ -94,7 +94,7 @@ setMethod("cache", "ExperimentHub",
     nopkg <- paste0(pkg,
                     " not installed.\n  Full functionality, documentation, ",
                     "and loading of data might not be possible without installing")
-    if (!pkg %in% rownames(installed.packages())){
+    if (!requireNamespace(pkg, quietly = TRUE)){
         message(nopkg)
         if (interactive() &&
             identical(AnnotationHub:::.ask(
@@ -105,7 +105,7 @@ setMethod("cache", "ExperimentHub",
             BiocManager::install(pkg, update=FALSE)
         }
     }
-    if (pkg %in% rownames(installed.packages())) {
+    if (requireNamespace(pkg, quietly = TRUE)) {
         suppressPackageStartupMessages({
             require(pkg, quietly = TRUE, character.only = TRUE)
         })
