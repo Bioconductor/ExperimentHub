@@ -70,7 +70,7 @@ head(unique(eh$rdataclass))
 The rdataclass allows you to see which kinds of R objects the hub will return to you.  This kind of information is valuable both as a means to filter results and also as a means to explore and learn about some of the kinds of `ExperimentHub` objects that are widely available for the project.  Right now this is a pretty short list, but over time it should grow as we support more of the different kinds of `ExperimentHub` objects via the hub.
 
 Now let's try getting the data files associated with the `r
-Biocpkg("alpineData")` package using the query method. The query method lets you
+Biocpkg("GSE103322")` package using the query method. The query method lets you
 search rows for specific strings, returning an `ExperimentHub` instance with
 just the rows matching the query. The `ExperimentHub::package()` function
 indicates the package responsible for original preparation and documentation of
@@ -84,17 +84,17 @@ object.
 One can get chain files for Drosophila melanogaster from UCSC with:
 
 ```{r alpine}
-apData <- query(eh, "alpineData")
-apData
+gseData <- query(eh, "GSE103322")
+gseData
 ```
 Query has worked and you can now see that the only data present is provided by
-the `r Biocpkg("alpineData")` package.
+the `r Biocpkg("GSE103322")` package.
 
 The metadata underlying this hub object can be retrieved by you
 
 ```{r show2}
-apData$preparerclass
-df <- mcols(apData)
+gseData$preparerclass
+df <- mcols(gseData)
 ```
 
 By default the show method will only display the first 5 and last 5  rows.
@@ -128,17 +128,17 @@ knitr::include_graphics("../man/figures/mm10_BiocHubsShiny.png")
 
 # Using `ExperimentHub` to retrieve data
 
-Looking back at our alpineData file example, if we are interested in the first file, we can get its metadata using
+Looking back at our GSE103322 file example, if we are interested in the first file, we can get its metadata using
 
 ```{r dm2}
-apData
-apData["EH166"]
+gseData
+gseData["EH5419"]
 ```
 
 We can download the file using
 
 ```{r dm3}
-apData[["EH166"]]
+gseData[["EH5419"]]
 ```
 
 Each file is retrieved from the ExperimentHub server and the file is
