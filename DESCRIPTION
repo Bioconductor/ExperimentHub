@@ -1,7 +1,7 @@
 Package: ExperimentHub
 Type: Package
 Title: Client to access ExperimentHub resources
-Version: 3.3.1
+Version: 3.3.2
 Authors@R:
     c(person("Bioconductor Package", "Maintainer", email="maintainer@bioconductor.org",
              role="cre"),
@@ -22,7 +22,7 @@ License: Artistic-2.0
 biocViews: Infrastructure, DataImport, GUI, ThirdPartyClient
 Depends: methods, BiocGenerics (>= 0.15.10), AnnotationHub (>= 3.99.3), BiocFileCache (>= 2.99.3)
 Imports: utils, S4Vectors, BiocManager, rappdirs
-Suggests: knitr, BiocStyle, rmarkdown, HubPub, GenomicAlignments
+Suggests: knitr, BiocStyle, rmarkdown, HubPub, GenomicAlignments, SingleCellExperiment
 Enhances: ExperimentHubData
 URL: https://github.com/Bioconductor/ExperimentHub
 BugReports: https://github.com/Bioconductor/ExperimentHub/issues
